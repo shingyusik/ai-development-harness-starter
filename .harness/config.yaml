@@ -1,0 +1,72 @@
+version: 1
+harness_root: .harness
+bootstrap: .harness/bootstrap.md
+source_of_truth:
+  decisions:
+    - .harness/decisions/0001-harness-operating-model.md
+    - .harness/decisions/0002-starter-adaptation-roadmap.md
+  planning:
+    - .harness/planning/roadmap.yaml
+    - .harness/planning/milestones.yaml
+    - .harness/planning/tasks.yaml
+required_spine_files:
+  - .harness/README.md
+  - .harness/CHANGELOG.md
+  - .harness/config.yaml
+  - .harness/bootstrap.md
+  - .harness/decisions/0001-harness-operating-model.md
+  - .harness/decisions/0002-starter-adaptation-roadmap.md
+  - .harness/planning/roadmap.yaml
+  - .harness/planning/milestones.yaml
+  - .harness/planning/tasks.yaml
+checks:
+  docs_harness: python scripts/check_docs_harness.py
+  planning_graph: python scripts/harness/check_planning_graph.py
+  harness_contract: python scripts/harness/check_harness_contract.py
+  documentation_policy: python scripts/harness/check_documentation_policy.py
+required_checks:
+  - id: docs_harness
+    title: Harness documentation validation
+    command: python scripts/check_docs_harness.py
+    category: documentation
+    scope:
+      - AGENTS.md
+      - README.md
+      - .harness
+      - scripts
+    required_for_merge: true
+    evidence: Command output or CI result showing docs harness validation passed.
+  - id: planning_graph
+    title: Planning graph validation
+    command: python scripts/harness/check_planning_graph.py
+    category: planning
+    scope:
+      - .harness/planning
+    required_for_merge: true
+    evidence: Command output or CI result showing planning graph validation passed.
+  - id: harness_contract
+    title: Harness contract validation
+    command: python scripts/harness/check_harness_contract.py
+    category: harness
+    scope:
+      - .harness
+    required_for_merge: true
+    evidence: Command output or CI result showing harness contract validation passed.
+  - id: documentation_policy
+    title: Documentation policy validation
+    command: python scripts/harness/check_documentation_policy.py
+    category: documentation
+    scope:
+      - README.md
+      - AGENTS.md
+      - .harness
+    required_for_merge: true
+    evidence: Command output or CI result showing documentation policy validation passed.
+project_check_placeholders:
+  - id: project_tests
+    title: Project tests
+    command: Replace with this project's test command.
+    category: project
+    required_for_merge: false
+    evidence: Replace with expected project test evidence.
+

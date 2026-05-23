@@ -1,0 +1,38 @@
+version: 1
+roadmap:
+  - id: STARTER-M1
+    title: Adopt harness starter
+    priority: P0
+    depends_on: []
+    blocks:
+      - STARTER-M2
+    goal: Replace starter placeholders with project-specific identity, checks, and planning entries.
+    done_when:
+      - Project name and purpose are documented
+      - .harness/config.yaml lists project-specific checks
+      - Example planning entries are replaced or explicitly kept as examples
+      - Harness checks pass
+  - id: STARTER-M2
+    title: Establish project quality gates
+    priority: P1
+    depends_on:
+      - STARTER-M1
+    blocks:
+      - STARTER-M3
+    goal: Add project-specific test, lint, build, security, and review evidence requirements.
+    done_when:
+      - Required project checks are listed in .harness/config.yaml
+      - Relevant gates reference project checks
+      - PR template captures project evidence
+  - id: STARTER-M3
+    title: Improve harness from real usage
+    priority: P2
+    depends_on:
+      - STARTER-M2
+    blocks: []
+    goal: Convert repeated failures into stronger harness checks, policies, gates, or templates.
+    done_when:
+      - Self-evolution reports are created for repeated failures
+      - Durable improvements are added to the narrowest useful harness artifact
+      - Changelog records harness-level changes
+

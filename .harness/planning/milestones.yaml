@@ -1,0 +1,44 @@
+version: 1
+milestones:
+  - id: STARTER-M1
+    title: Adopt harness starter
+    priority: P0
+    status: ready
+    depends_on: []
+    blocks:
+      - STARTER-M2
+    owner_role: tech-lead
+    source: .harness/decisions/0002-starter-adaptation-roadmap.md
+    done_when:
+      - Project name and purpose are documented
+      - .harness/config.yaml lists project-specific checks
+      - Example planning entries are replaced or explicitly kept as examples
+      - Harness checks pass
+  - id: STARTER-M2
+    title: Establish project quality gates
+    priority: P1
+    status: blocked
+    depends_on:
+      - STARTER-M1
+    blocks:
+      - STARTER-M3
+    owner_role: quality-reviewer
+    source: .harness/decisions/0002-starter-adaptation-roadmap.md
+    done_when:
+      - Required project checks are listed in .harness/config.yaml
+      - Relevant gates reference project checks
+      - PR template captures project evidence
+  - id: STARTER-M3
+    title: Improve harness from real usage
+    priority: P2
+    status: blocked
+    depends_on:
+      - STARTER-M2
+    blocks: []
+    owner_role: self-evolution
+    source: .harness/decisions/0001-harness-operating-model.md
+    done_when:
+      - Self-evolution reports are created for repeated failures
+      - Durable improvements are added to the narrowest useful harness artifact
+      - Changelog records harness-level changes
+

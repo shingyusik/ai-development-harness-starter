@@ -1,0 +1,74 @@
+version: 1
+tasks:
+  - id: STARTER-T001
+    title: Replace starter identity
+    milestone_id: STARTER-M1
+    priority: P0
+    status: ready
+    depends_on: []
+    owner_role: tech-lead
+    rationale: A new project needs its own name, purpose, and run instructions before agents can make project-aware decisions.
+    acceptance:
+      - README.md names the project
+      - README.md explains how to run the project
+      - Private names, local paths, secrets, and vendor assumptions are absent
+    sequencing_rationale: First because all later planning and review should refer to the real project.
+  - id: STARTER-T002
+    title: Configure project checks
+    milestone_id: STARTER-M1
+    priority: P0
+    status: blocked
+    depends_on:
+      - STARTER-T001
+    owner_role: quality-reviewer
+    rationale: Harness checks are generic; each project must declare its own test, lint, build, and release evidence.
+    acceptance:
+      - .harness/config.yaml lists project-specific checks
+      - PR template verification section names those checks or points to the manifest
+      - Merge readiness gate explains required evidence
+    sequencing_rationale: Follows project identity so commands can match the actual stack.
+  - id: STARTER-T003
+    title: Replace example planning graph
+    milestone_id: STARTER-M1
+    priority: P1
+    status: blocked
+    depends_on:
+      - STARTER-T001
+    owner_role: pm
+    rationale: Example roadmap entries should not drive real project sequencing.
+    acceptance:
+      - .harness/planning/roadmap.yaml contains real roadmap entries or explicitly documented examples
+      - .harness/planning/milestones.yaml contains real milestones or explicitly documented examples
+      - .harness/planning/tasks.yaml contains real tasks or explicitly documented examples
+      - python scripts/harness/check_planning_graph.py passes
+    sequencing_rationale: Runs after identity because planning entries should use project-specific goals.
+  - id: STARTER-T004
+    title: Add project gate evidence
+    milestone_id: STARTER-M2
+    priority: P1
+    status: blocked
+    depends_on:
+      - STARTER-T002
+      - STARTER-T003
+    owner_role: quality-reviewer
+    rationale: Review should use evidence tied to the actual project stack and risk profile.
+    acceptance:
+      - Relevant gates reference project checks
+      - Skipped checks require a reason and follow-up when needed
+      - PR evidence can be reviewed without chat history
+    sequencing_rationale: Requires both commands and planning state to be customized.
+  - id: STARTER-T005
+    title: Record first self-evolution report
+    milestone_id: STARTER-M3
+    priority: P2
+    status: blocked
+    depends_on:
+      - STARTER-T004
+    owner_role: self-evolution
+    rationale: The harness should improve from real failures instead of accumulating broad reminders.
+    acceptance:
+      - A repeated or high-impact failure is captured with evidence
+      - The narrowest durable harness improvement is implemented
+      - .harness/CHANGELOG.md records the harness-level change
+    sequencing_rationale: Waits until the project has real gate evidence and usage patterns.
+

@@ -1,0 +1,39 @@
+name: Docs Harness
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - "AGENTS.md"
+      - "README.md"
+      - ".harness/**"
+      - ".github/workflows/docs-harness.yml"
+      - ".github/pull_request_template.md"
+      - "scripts/check_docs_harness.py"
+      - "scripts/harness/**"
+  push:
+    paths:
+      - "AGENTS.md"
+      - "README.md"
+      - ".harness/**"
+      - ".github/workflows/docs-harness.yml"
+      - ".github/pull_request_template.md"
+      - "scripts/check_docs_harness.py"
+      - "scripts/harness/**"
+
+jobs:
+  docs-harness:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Docs harness check
+        run: python scripts/check_docs_harness.py
+
