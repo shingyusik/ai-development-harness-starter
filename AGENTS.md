@@ -1,7 +1,7 @@
 # Project Agent Entry Point
 
 이 파일은 Codex가 시작할 때 먼저 읽는 **프로젝트 소스코드 작업 지침**이다.
-하네스 운영 기준의 source of truth는 `.harness/`에 있지만, 이 파일은 대상 프로젝트의 코드 구조와 작업 방식을 먼저 잡아주는 얇은 entry point여야 한다.
+하네스 정책/게이트/계획의 source of truth는 `.harness/`에 있지만, 실행 가능한 역할 정의의 source of truth는 루트 `.codex/agents/*.toml`이다. 이 파일은 대상 프로젝트의 코드 구조와 작업 방식을 먼저 잡아주는 얇은 entry point여야 한다.
 
 ## 프로젝트 컨텍스트를 먼저 채운다
 
@@ -54,6 +54,8 @@
 ## 역할 라우팅
 
 실행 가능한 역할 정의는 루트 `.codex/agents/*.toml`이 단일 source of truth다. `.harness/roles.yaml`은 하네스 role을 해당 Codex custom agent와 policy/gate/planning 파일에 연결한다.
+
+`.harness/agents/`나 별도 role instruction 문서는 만들지 않는다. 하네스 내부에는 registry와 정책만 두고, agent 본문은 Codex가 직접 실행하는 `.codex/agents/*.toml`에 둔다.
 
 - 계획, task 선택, acceptance criteria: `.codex/agents/harness-pm.toml`
 - 기술 접근, 순서, cross-file scope: `.codex/agents/harness-tech-lead.toml`

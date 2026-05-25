@@ -16,6 +16,7 @@ BOOTSTRAP_PATH = ".harness/bootstrap.md"
 ROOT_ROUTING_FILES = {"AGENTS.md"}
 FORBIDDEN_SOURCE_OF_TRUTH_FILES = {"AGENT.md", "CLAUDE.md"}
 FUTURE_HARNESS_DIRS = (".harness/policies", ".harness/gates")
+FORBIDDEN_HARNESS_AGENT_PATH = ".harness/agents"
 
 
 def _repo_path(relative_path: str) -> Path:
@@ -241,6 +242,15 @@ def _check_roles_registry(config: dict[str, Any], errors: list[str]) -> None:
     for path in missing_bindings:
         errors.append(f"required Codex agent is not referenced by .harness/roles.yaml: {path}")
 
+
+def _check_no_duplicate_harness_agents(errors: list[str]) -> None:
+    if _repo_path(FORBIDDEN_HARNESS_AGENT_PATH).exists():
+        errors.append(
+            "duplicate harness agent directory is forbidden; "
+            "use .codex/agents/*.toml plus .harness/roles.yaml instead: "
+            f"{FORBIDDEN_HARNESS_AGENT_PATH}"
+        )
+
 def _check_bootstrap_contract(errors: list[str]) -> None:
     bootstrap_file = _repo_path(BOOTSTRAP_PATH)
     if not bootstrap_file.is_file():
@@ -298,8 +308,10 @@ def validate() -> tuple[list[str], list[str]]:
         _check_named_source_groups(config, errors)
         _check_check_paths(config, errors)
         _check_codex_config(config, errors)
+        _check_roles_registry(config, errors)
 
     _check_bootstrap_contract(errors)
+    _check_no_duplicate_harness_agents(errors)
     _check_warnings(warnings)
 
     return errors, warnings

@@ -10,6 +10,7 @@
 - 기계 판독 manifest와 required checks는 `.harness/config.yaml`이 담당한다.
 - role별 Codex agent binding과 추가 로딩 파일은 `.harness/roles.yaml`이 담당한다.
 - 이 파일 `.harness/bootstrap.md`는 role 선택, 필요한 하네스 문서 로딩, 편집 전 확인, 보고 형식만 정의한다.
+- `.harness/agents/`는 만들지 않는다. 역할 본문은 Codex가 직접 실행하는 `.codex/agents/*.toml` 하나만 source of truth로 둔다.
 
 ## 하네스 로딩 순서
 
@@ -34,6 +35,8 @@
 ## 역할 선택
 
 역할의 실행 가능한 정의는 `.codex/agents/*.toml`이 단일 source of truth다. `.harness/roles.yaml`은 하네스 role 이름을 Codex custom agent와 필요한 policy/gate/planning 파일에 연결하는 registry다.
+
+하네스 계층은 agent instruction을 복제하지 않는다. 정책, gate, planning, registry만 유지한다.
 
 - `pm` → `.codex/agents/harness-pm.toml`
 - `tech_lead` → `.codex/agents/harness-tech-lead.toml`
