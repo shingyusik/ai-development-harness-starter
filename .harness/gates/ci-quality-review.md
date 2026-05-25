@@ -1,36 +1,37 @@
 # CI Quality Review Gate
 
-## Inputs
+## 목적
 
-- `.harness/policies/ci-quality.md`
-- `.harness/config.yaml` `required_checks` manifest.
-- Local quality command output.
-- CI status or required-check evidence when available.
-- Changed code, docs, planning, and harness files.
+CI와 local check 결과가 merge 가능한 수준인지 확인한다.
+
+## 입력
+
+- 사용자 요청 또는 PR 설명.
+- 관련 roadmap/milestone/task.
+- 변경 파일 목록.
+- 관련 policy.
+- 실행한 checks와 결과.
 
 ## Required Checks
 
-- [ ] Identify required checks from `.harness/config.yaml` `required_checks`.
-- [ ] Run relevant tests for changed behavior.
-- [ ] Run lint, typecheck, and format checks where practical for touched areas.
-- [ ] Run architecture checks when boundaries, imports, APIs, or data access are touched.
-- [ ] Run docs checks when documentation policy can be mechanically checked.
-- [ ] Run planning graph checks when `.harness/planning/*.yaml` changes.
-- [ ] Run harness contract checks when `.harness/` structure changes.
-- [ ] Link CI results or local command output for every required check that applies.
-- [ ] Record skipped or unavailable required checks with reason and follow-up.
+- [ ] Acceptance criteria가 명확하고 충족됐다.
+- [ ] 변경 범위가 승인된 scope 안에 있다.
+- [ ] 관련 policy와 충돌하지 않는다.
+- [ ] 필요한 자동화 check가 통과했다.
+- [ ] 생략한 check는 이유와 follow-up이 있다.
+- [ ] manual evidence가 필요한 경우 artifact가 있다.
 
 ## Evidence
 
-- Local command output for tests, lint, typecheck, format, architecture, docs, planning, and harness checks.
-- CI run link or status summary.
-- Required-check manifest path: `.harness/config.yaml`.
-- Follow-up task for checks that should become automated.
+- Changed files.
+- Command outputs 또는 CI links.
+- Manual-test path, 필요한 경우.
+- Cleanup evidence, 필요한 경우.
+- 남은 risk와 follow-up.
 
 ## Fails When
 
-- A relevant required check fails.
-- Required-check evidence is missing without rationale.
-- CI evidence is absent for merge readiness when CI is available.
-- Skipped checks have no reason or follow-up.
-- Repeated failures are not routed to a stronger check.
+- acceptance criteria가 검증 불가능하다.
+- required check가 실패했다.
+- scope 밖 변경이 섞였다.
+- evidence 없이 중요한 검증을 생략했다.

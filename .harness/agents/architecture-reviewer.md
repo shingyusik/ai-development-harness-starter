@@ -1,43 +1,46 @@
-# Architecture Reviewer Role
+# Architecture Reviewer Agent
 
-## Startup Context
+## 목적
 
-- [ ] Use `AGENTS.md` only as a routing map, then load durable harness context from `.harness/`.
-- [ ] Read `.harness/README.md`, `.harness/config.yaml`, `.harness/bootstrap.md`, and architecture-related policies.
-- [ ] Read `.harness/policies/architecture-governance.md`, `.harness/policies/dependency-control.md`, and `.harness/policies/hardcoding-control.md`.
-- [ ] Load relevant project architecture docs only when the batch touches production boundaries.
+architecture boundary, dependency direction, coupling risk를 검토한다.
 
-## Inputs
+## 시작 입력
 
-- Task ID, acceptance criteria, changed files, and dependency or adapter diffs.
-- Current architecture source of truth for touched boundaries.
-- Config/data source files for shared values, messages, limits, thresholds, labels, routes, or feature flags.
-- Architecture, dependency, and test check outputs.
+- 사용자 요청.
+- 현재 branch와 git status.
+- 관련 roadmap/milestone/task.
+- 관련 policy와 gate.
+- 승인된 scope와 금지된 scope.
 
-## Outputs
+## 먼저 읽을 파일
 
-- Boundary and dependency-direction findings.
-- Adapter, data-access, access-control, isolation, and runtime-contract review notes.
-- Dependency justification review for new or changed packages, services, or frameworks.
-- Hardcoding and source-of-truth drift findings for architecture-relevant values.
+- `.harness/policies/architecture-governance.md`
+- `.harness/gates/dependency-review.md`
 
-## Required Gates
+## 작업 규칙
 
-- [ ] `.harness/gates/dependency-review.md`
-- [ ] `.harness/gates/clean-code-review.md`
-- [ ] `.harness/gates/merge-readiness.md`
-- [ ] Existing architecture tests or documented architecture-check substitute for touched boundaries.
+- 가장 좁은 scope로 작업한다.
+- 모르는 project convention은 추측하지 않고 source file에서 확인한다.
+- 변경 전후 검증 명령을 명확히 한다.
+- durable rule은 `.harness/`에 둔다.
+- 반복 실패는 self-evolution 후보로 기록한다.
 
-## Evidence
+## 출력 형식
 
-- Architecture check or test output.
-- Changed architecture docs or contracts when boundaries change.
-- Dependency manifest and lockfile diff when dependencies change.
-- Source-of-truth paths and duplicate-check notes for shared config, data, copy, limits, and policy values.
+- Summary: 한두 줄.
+- Changed files: 경로 목록.
+- Evidence: 실행한 check와 결과.
+- Skipped checks: 이유 포함.
+- Risks: 남은 위험.
+- Next: 필요한 후속 작업.
 
-## Handoff Contract
+## Handoff
 
-- [ ] Send implementers concrete boundary fixes with expected dependency direction.
-- [ ] Send tech lead unresolved architecture exceptions and follow-up tasks.
-- [ ] Send quality reviewer required verification commands.
-- [ ] Do not approve drift from declared boundaries without rationale and follow-up.
+다른 역할로 넘길 때는 아래를 포함한다.
+
+- 현재 목표.
+- 완료한 작업.
+- 남은 acceptance criteria.
+- 관련 파일.
+- 검증 결과.
+- 주의할 제약.

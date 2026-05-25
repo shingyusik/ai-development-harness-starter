@@ -1,32 +1,24 @@
 # CI Quality Policy
 
-## Purpose
+## 목적
 
-- Treat CI as required merge evidence, not optional advice.
-- Keep local and remote quality checks aligned where practical.
-- Convert repeated review failures into stronger automated checks.
+품질 기준을 가능한 한 CI와 자동화 check로 강제한다.
 
-## Rules
+## 규칙
 
-- Pull requests do not merge while required quality checks fail.
-- Required checks are listed in `.harness/config.yaml` or an equivalent machine-readable manifest.
-- CI should run practical tests, lint, typecheck, format, architecture, docs, planning graph, and harness contract checks.
-- Agents run relevant local checks before requesting review.
-- Missing checks are recorded as follow-up when they are too expensive for the current batch.
-- Manual-test artifacts cover behavior that cannot be automated.
-- Repeated CI or review escapes become a policy, gate, script, test, lint rule, workflow, template, or skill improvement.
+- 테스트, lint, typecheck, build를 required check로 연결한다.
+- CI skip은 이유와 follow-up을 남긴다.
+- 반복 실패는 새 check 후보로 본다.
 
-## Review Checks
+## 리뷰 체크
 
-- [ ] Test evidence covers changed production behavior where practical.
-- [ ] Lint, typecheck, format, and architecture checks are run or explicitly scoped out.
-- [ ] Docs, planning graph, and harness contract checks run when touched areas require them.
-- [ ] CI-required checks match the change area.
-- [ ] Failed, skipped, or unavailable checks have a clear reason and follow-up.
+- [ ] 변경이 이 정책의 목적과 충돌하지 않는다.
+- [ ] 예외가 있으면 이유와 follow-up이 있다.
+- [ ] 자동화 가능한 항목은 gate, script, test, CI 중 하나로 연결되어 있다.
 
-## Gate Evidence
+## Evidence
 
-- Local command output for relevant checks.
-- CI run link or status summary.
-- Manifest entry for required checks when available.
-- Manual-test artifact paths for automation gaps.
+- 관련 변경 파일.
+- 실행한 check.
+- 생략한 check와 이유.
+- 남은 위험.

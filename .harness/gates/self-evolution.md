@@ -1,51 +1,37 @@
 # Self-Evolution Gate
 
-## Inputs
+## 목적
 
-- `.harness/policies/self-evolution.md`
-- `.harness/templates/self-evolution-report.md`
-- Review findings, CI failures, manual-test failures, production issues, or agent execution failures.
-- Existing harness policies, gates, scripts, tests, templates, workflows, and skills.
+반복 실패가 하네스 개선으로 전환됐는지 확인한다.
 
-## Triggers
+## 입력
 
-- Repeated review failure.
-- Repeated CI failure.
-- Repeated manual-test failure.
-- Production/user-visible incident.
-- Agent execution failure.
-- Recurring process confusion.
+- 사용자 요청 또는 PR 설명.
+- 관련 roadmap/milestone/task.
+- 변경 파일 목록.
+- 관련 policy.
+- 실행한 checks와 결과.
 
 ## Required Checks
 
-- [ ] Confirm the failure is repeated or high-impact enough to justify harness change.
-- [ ] Identify concrete examples of the failure pattern.
-- [ ] Choose the smallest durable improvement that catches or prevents the pattern earlier.
-- [ ] Prefer a script, test, lint rule, workflow, gate, template, or skill over broad prose.
-- [ ] Place the improvement in the correct harness artifact.
-- [ ] Update `.harness/CHANGELOG.md` for harness-level changes.
-- [ ] Add planning follow-up when the improvement cannot fit the current batch.
-- [ ] Keep the output concise and action-oriented.
-
-## Output
-
-- Concise report path using `.harness/templates/self-evolution-report.md`.
-- Chosen improvement type/path for the policy, gate, script, test, workflow, template, or skill change.
-- Verification evidence for any changed or added mechanical check.
-- Changelog/planning update covering harness-level changes and task status.
-- Deferred follow-up when the improvement is not fixed immediately.
+- [ ] Acceptance criteria가 명확하고 충족됐다.
+- [ ] 변경 범위가 승인된 scope 안에 있다.
+- [ ] 관련 policy와 충돌하지 않는다.
+- [ ] 필요한 자동화 check가 통과했다.
+- [ ] 생략한 check는 이유와 follow-up이 있다.
+- [ ] manual evidence가 필요한 경우 artifact가 있다.
 
 ## Evidence
 
-- Links or paths for repeated failure examples.
-- Chosen improvement type and changed path.
-- Verification output for new or changed mechanical checks.
-- Changelog entry or planning follow-up path.
+- Changed files.
+- Command outputs 또는 CI links.
+- Manual-test path, 필요한 경우.
+- Cleanup evidence, 필요한 경우.
+- 남은 risk와 follow-up.
 
 ## Fails When
 
-- The failure pattern is speculative or unsupported.
-- The change adds broad instructions where a practical check could enforce the rule.
-- The improvement is stored outside the harness boundary.
-- Verification evidence for new checks is missing.
-- Required changelog or planning follow-up is absent.
+- acceptance criteria가 검증 불가능하다.
+- required check가 실패했다.
+- scope 밖 변경이 섞였다.
+- evidence 없이 중요한 검증을 생략했다.

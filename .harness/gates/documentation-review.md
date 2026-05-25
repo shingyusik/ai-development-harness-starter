@@ -1,33 +1,37 @@
 # Documentation Review Gate
 
-## Inputs
+## 목적
 
-- `.harness/policies/documentation.md`
-- Changed documentation files.
-- Source material used to update documentation.
+문서가 현재 상태 중심이고 올바른 위치에 있는지 확인한다.
+
+## 입력
+
+- 사용자 요청 또는 PR 설명.
+- 관련 roadmap/milestone/task.
+- 변경 파일 목록.
+- 관련 policy.
+- 실행한 checks와 결과.
 
 ## Required Checks
 
-- [ ] Keep harness guidance under `.harness/`.
-- [ ] Keep project docs focused on current project behavior, architecture, operations, and run commands.
-- [ ] Do not add harness manuals to root docs or root agent instruction files.
-- [ ] Write current-state documentation, not a process diary or implementation history.
-- [ ] Keep changelog prose only in changelog files.
-- [ ] Preserve source filenames, links, or references for imported material.
-- [ ] Prefer concise bullets, checklists, and fields over long prose.
-- [ ] Add or update mechanical checks when a durable rule should be enforced.
+- [ ] Acceptance criteria가 명확하고 충족됐다.
+- [ ] 변경 범위가 승인된 scope 안에 있다.
+- [ ] 관련 policy와 충돌하지 않는다.
+- [ ] 필요한 자동화 check가 통과했다.
+- [ ] 생략한 check는 이유와 follow-up이 있다.
+- [ ] manual evidence가 필요한 경우 artifact가 있다.
 
 ## Evidence
 
-- List of documentation paths changed.
-- Reason each changed document belongs in its location.
-- Source filenames or links for imported material.
-- Documentation checker output when available.
+- Changed files.
+- Command outputs 또는 CI links.
+- Manual-test path, 필요한 경우.
+- Cleanup evidence, 필요한 경우.
+- 남은 risk와 follow-up.
 
 ## Fails When
 
-- Harness guidance is placed outside `.harness/`.
-- Project docs describe task history instead of current state.
-- Changelog-style prose appears in current-state docs.
-- External source context is lost.
-- A rule remains manual when a practical check could enforce it.
+- acceptance criteria가 검증 불가능하다.
+- required check가 실패했다.
+- scope 밖 변경이 섞였다.
+- evidence 없이 중요한 검증을 생략했다.

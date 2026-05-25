@@ -10,7 +10,6 @@ source_of_truth:
     - .harness/planning/milestones.yaml
     - .harness/planning/tasks.yaml
 required_spine_files:
-  - .harness/README.md
   - .harness/CHANGELOG.md
   - .harness/config.yaml
   - .harness/bootstrap.md

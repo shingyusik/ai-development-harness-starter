@@ -1,44 +1,37 @@
 # Clean Code Review Gate
 
-## Inputs
+## 목적
 
-- `.harness/policies/clean-code.md`
-- `.harness/policies/hardcoding-control.md`
-- `.harness/policies/duplication-control.md`
-- `.harness/policies/abstraction-yagni.md`
-- `.harness/policies/architecture-governance.md`
-- Changed production, test, and review files.
+변경 코드가 clean code 기준을 만족하는지 확인한다.
+
+## 입력
+
+- 사용자 요청 또는 PR 설명.
+- 관련 roadmap/milestone/task.
+- 변경 파일 목록.
+- 관련 policy.
+- 실행한 checks와 결과.
 
 ## Required Checks
 
-- [ ] Names reveal domain intent at the call site.
-- [ ] Functions are small and keep one clear responsibility.
-- [ ] Modules remain cohesive with one primary reason to change.
-- [ ] Side effects, writes, network calls, and mutations are explicit.
-- [ ] Error paths are handled intentionally and not swallowed.
-- [ ] Tests cover changed behavior and important error paths where practical.
-- [ ] Duplication is removed when it creates drift or inconsistent behavior.
-- [ ] Business numbers, user-facing strings, limits, thresholds, prompts, labels, messages, and feature flags are not hardcoded in source code.
-- [ ] Shared values read from JSON/config data sources or generated typed constants derived from them.
-- [ ] Config/data files may be split intentionally, but the same logical variable/message is not duplicated across files.
-- [ ] New abstractions have current need and do not hide domain meaning.
-- [ ] Architecture boundaries and dependency direction are preserved.
+- [ ] Acceptance criteria가 명확하고 충족됐다.
+- [ ] 변경 범위가 승인된 scope 안에 있다.
+- [ ] 관련 policy와 충돌하지 않는다.
+- [ ] 필요한 자동화 check가 통과했다.
+- [ ] 생략한 check는 이유와 follow-up이 있다.
+- [ ] manual evidence가 필요한 경우 artifact가 있다.
 
 ## Evidence
 
-- Diff for changed code and tests.
-- Relevant test command output.
-- Reviewer notes for accepted duplication, side effects, or abstraction tradeoffs.
-- JSON/config source paths for shared values and messages, including duplicate-check notes for values split across files.
-- Architecture check output when boundaries are touched.
+- Changed files.
+- Command outputs 또는 CI links.
+- Manual-test path, 필요한 경우.
+- Cleanup evidence, 필요한 경우.
+- 남은 risk와 follow-up.
 
 ## Fails When
 
-- Names, flow, or module shape obscure the changed behavior.
-- A function or module mixes unrelated responsibilities.
-- Side effects or errors are hidden from callers or tests.
-- Duplication creates inconsistent behavior without rationale.
-- A shared value or user-facing message is hardcoded in source code.
-- Any two consumers can drift because they do not read the same source value.
-- The same logical variable or message is duplicated in multiple config/data files.
-- A speculative abstraction is added without current need.
+- acceptance criteria가 검증 불가능하다.
+- required check가 실패했다.
+- scope 밖 변경이 섞였다.
+- evidence 없이 중요한 검증을 생략했다.

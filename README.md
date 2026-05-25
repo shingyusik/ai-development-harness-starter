@@ -1,54 +1,46 @@
 # AI Development Harness Starter
 
-This repository is a generic starter template for a repo-first AI development harness. It gives coding agents and humans a shared operating model for planning, implementation, review, verification, and controlled process improvement.
+이 저장소는 프로젝트에 복사해서 쓸 수 있는 **repo-first AI 개발 하네스 스타터**다.
 
-The harness source of truth lives in `.harness/`. Root files such as this README and `AGENTS.md` are entry points and routing maps; durable policies, gates, agent roles, planning data, templates, and decision records belong under `.harness/`.
+핵심 시작 파일은 루트 `AGENTS.md`와 `.harness/bootstrap.md`다. `AGENTS.md`는 coding agent가 처음 주입받는 프로젝트 소스코드 작업 지침이고, `.harness/bootstrap.md`는 하네스 운영 시작 계약이다.
 
-## Start A New Project
+## 목적
 
-1. Create a new repository from this starter.
-2. Replace placeholder project language with your project name, stack, and commands.
-3. Read `.harness/README.md` and `.harness/bootstrap.md`.
-4. Update `.harness/config.yaml` with project-specific checks.
-5. Replace the example planning entries in `.harness/planning/*.yaml`.
-6. Keep secrets out of the repo and use local environment files ignored by `.gitignore`.
-7. Run the harness checks before opening a PR.
+- AI coding agent가 프로젝트 규칙을 매번 다시 추측하지 않게 한다.
+- 로드맵, 태스크, 정책, 리뷰 gate, 검증 명령을 저장소 안에 둔다.
+- 하네스 기준은 `.harness/`에 모은다.
+- 루트 `AGENTS.md`는 대상 프로젝트의 source paths, test/build commands, architecture constraints를 먼저 안내하고 필요한 하네스 문서로 라우팅한다.
 
-## Agent Startup
+## 빠른 시작
 
-Coding agents should start with `AGENTS.md` for routing, then load `.harness/bootstrap.md` and only the `.harness` files relevant to the requested role and task.
-
-Default order:
-
-1. `AGENTS.md`
-2. `.harness/README.md`
-3. `.harness/config.yaml`
-4. `.harness/bootstrap.md`
-5. relevant `.harness/agents/<role>.md`
-6. relevant `.harness/policies/*.md`
-7. relevant `.harness/gates/*.md`
-8. relevant `.harness/planning/*.yaml`
-
-## Checks
-
-Run these starter checks from the repository root:
+1. 이 저장소를 새 프로젝트에 복사하거나 template으로 사용한다.
+2. `AGENTS.md`의 project purpose, source paths, test/build commands, architecture constraints를 프로젝트에 맞게 바꾼다.
+3. `.harness/config.yaml`의 프로젝트 이름, required checks, source paths를 프로젝트에 맞게 바꾼다.
+4. `.harness/planning/*.yaml`에 실제 roadmap, milestone, task를 입력한다.
+5. `.harness/policies/`와 `.harness/gates/`에서 프로젝트에 맞지 않는 항목을 줄이거나 고친다.
+6. 아래 검증을 실행한다.
 
 ```bash
-python scripts/check_docs_harness.py
-python scripts/harness/check_planning_graph.py
 python scripts/harness/check_harness_contract.py
+python scripts/harness/check_planning_graph.py
 python scripts/harness/check_documentation_policy.py
-git diff --check
+python scripts/check_docs_harness.py
 ```
 
-Projects should add their own test, lint, typecheck, security, and build commands to `.harness/config.yaml`.
+## 주요 폴더
 
-## Safe Adaptation
+- `.harness/`: 하네스 source of truth.
+- `.harness/agents/`: 역할별 agent 계약.
+- `.harness/policies/`: 지속적으로 지킬 정책.
+- `.harness/gates/`: 리뷰/머지 전 확인 기준.
+- `.harness/planning/`: roadmap, milestone, task graph.
+- `.harness/templates/`: 반복 문서 템플릿.
+- `scripts/harness/`: 하네스 검증 스크립트.
+- `.github/`: PR/CI starter 파일.
 
-- Change `.harness` first when the operating model changes.
-- Record lasting decisions in `.harness/decisions/`.
-- Keep planning state in `.harness/planning/`.
-- Convert repeated review or CI failures into stronger checks, gates, templates, or policies.
-- Keep `AGENTS.md` short and route agents to `.harness` instead of duplicating harness instructions.
-- Do not put secrets, machine-local paths, personal workflow notes, or vendor-specific assumptions into the starter.
+## 사용 원칙
 
+- 프로젝트 고유 규칙이 생기면 `.harness/`에 기록한다.
+- 사람이 반복해서 지적한 문제는 policy, gate, script, test 중 하나로 바꾼다.
+- 긴 설명보다 짧은 checklist와 실행 가능한 검증을 우선한다.
+- 최종 문서는 영어로 운용해도 된다. 지금 한국어 문서는 설계 피드백용 초안이다.

@@ -1,33 +1,24 @@
 # Duplication Control Policy
 
-## Purpose
+## 목적
 
-- Remove duplication that creates drift, inconsistent behavior, or review confusion.
-- Allow intentional local duplication when abstraction would add more risk.
-- Keep duplication decisions explicit.
+중복을 관리하되 성급한 추상화를 피한다.
 
-## Rules
+## 규칙
 
-- Remove duplicated business rules, contracts, and validation paths unless intentionally separated.
-- Centralize shared constants or schemas when multiple callers must stay in sync.
-- Preserve small local duplication when it keeps code simpler and changes are unlikely to couple.
-- Do not create a shared abstraction from a single use.
-- Prefer behavior tests around deduplicated logic.
-- Document intentional duplication when reviewers could reasonably treat it as drift.
-- Revisit intentional duplication after repeated changes show a stable shared concept.
-- Avoid copy-paste tests that obscure the behavior being asserted.
+- 같은 logical value/message는 하나의 source를 가진다.
+- 반복 코드가 실제로 함께 변하는지 확인한다.
+- 중복 제거가 복잡도를 키우면 보류한다.
 
-## Review Checks
+## 리뷰 체크
 
-- [ ] Duplicated logic does not create inconsistent behavior.
-- [ ] Shared concepts have a single source of truth where needed.
-- [ ] Intentional duplication has a clear rationale.
-- [ ] New abstractions are supported by repeated need.
-- [ ] Tests cover shared behavior after deduplication.
+- [ ] 변경이 이 정책의 목적과 충돌하지 않는다.
+- [ ] 예외가 있으면 이유와 follow-up이 있다.
+- [ ] 자동화 가능한 항목은 gate, script, test, CI 중 하나로 연결되어 있다.
 
-## Gate Evidence
+## Evidence
 
-- Code search showing duplicated symbols or rules were checked.
-- Rationale for intentional duplication.
-- Test output for shared behavior.
-- Follow-up task when cleanup is deferred.
+- 관련 변경 파일.
+- 실행한 check.
+- 생략한 check와 이유.
+- 남은 위험.

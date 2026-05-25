@@ -1,33 +1,24 @@
 # Roadmap Alignment Policy
 
-## Purpose
+## 목적
 
-- Select work from the planning graph instead of ad hoc memory.
-- Keep task priority, dependencies, and sequencing rationale explicit.
-- Update downstream readiness when dependencies are completed.
+작업은 roadmap, milestone, task와 연결한다.
 
-## Rules
+## 규칙
 
-- Roadmap, milestone, and task state live in `.harness/planning/*.yaml`.
-- The next task must be directly workable: all dependencies are done or the task is explicitly ready.
-- Priority order guides selection, with dependency blockers handled before optional work.
-- Each task records rationale, acceptance criteria, owner role, and sequencing rationale.
-- Completing a task updates tasks it unblocks from `blocked` to `ready` when all dependencies are done.
-- Tasks with unfinished dependencies remain `blocked`.
-- Milestone status reflects done_when criteria, not optimism.
-- Planning graph changes must pass the planning graph checker.
+- 새 작업은 관련 milestone/task를 가진다.
+- 우선순위와 dependency를 확인한다.
+- roadmap과 어긋나는 작업은 별도 승인한다.
 
-## Review Checks
+## 리뷰 체크
 
-- [ ] The selected task is present in `.harness/planning/tasks.yaml`.
-- [ ] Dependency status supports the selected task state.
-- [ ] Unblocked tasks were advanced to `ready` only when all dependencies are done.
-- [ ] Blocked tasks with remaining dependencies stayed blocked.
-- [ ] Milestone status is justified by done_when text.
+- [ ] 변경이 이 정책의 목적과 충돌하지 않는다.
+- [ ] 예외가 있으면 이유와 follow-up이 있다.
+- [ ] 자동화 가능한 항목은 gate, script, test, CI 중 하나로 연결되어 있다.
 
-## Gate Evidence
+## Evidence
 
-- Diff for `.harness/planning/*.yaml`.
-- Output from `python scripts/harness/check_planning_graph.py`.
-- Brief sequencing rationale for the selected batch.
-- List of newly unblocked tasks.
+- 관련 변경 파일.
+- 실행한 check.
+- 생략한 check와 이유.
+- 남은 위험.

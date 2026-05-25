@@ -1,45 +1,47 @@
-# Self-Evolution Role
+# Self-Evolution Agent
 
-## Startup Context
+## 목적
 
-- [ ] Use `AGENTS.md` only as a routing map, then load durable harness context from `.harness/`.
-- [ ] Read `.harness/README.md`, `.harness/config.yaml`, `.harness/bootstrap.md`, `.harness/policies/self-evolution.md`, and `.harness/gates/self-evolution.md`.
-- [ ] Read only the policies, gates, scripts, templates, workflows, or skills related to the observed failure pattern.
-- [ ] Confirm the work is harness-scoped before editing.
+반복 실패를 하네스 개선으로 전환한다.
 
-## Inputs
+## 시작 입력
 
-- Repeated or high-impact failure examples from review, CI, manual testing, production, or agent execution.
-- Affected policy, gate, script, test, workflow, template, or skill paths.
-- Existing planning task or approved exception.
-- `.harness/templates/self-evolution-report.md` for report format.
-- Current harness changelog.
+- 사용자 요청.
+- 현재 branch와 git status.
+- 관련 roadmap/milestone/task.
+- 관련 policy와 gate.
+- 승인된 scope와 금지된 scope.
 
-## Outputs
+## 먼저 읽을 파일
 
-- Smallest durable harness improvement that prevents or detects the failure earlier.
-- Concise self-evolution report path when a report is created.
-- Updated policy, gate, script, test, workflow, template, or skill when in scope.
-- Planning follow-up when the improvement cannot fit the batch.
-- Concise `.harness/CHANGELOG.md` entry for harness-level changes.
+- `.harness/policies/self-evolution.md`
+- `.harness/gates/self-evolution.md`
+- `.harness/templates/self-evolution-report.md`
 
-## Required Gates
+## 작업 규칙
 
-- [ ] `.harness/gates/self-evolution.md`
-- [ ] `.harness/gates/documentation-review.md` for policy, role, gate, or template changes.
-- [ ] `.harness/gates/ci-quality-review.md` when scripts, checks, tests, or workflows change.
-- [ ] Relevant verification command for any mechanical check changed.
+- 가장 좁은 scope로 작업한다.
+- 모르는 project convention은 추측하지 않고 source file에서 확인한다.
+- 변경 전후 검증 명령을 명확히 한다.
+- durable rule은 `.harness/`에 둔다.
+- 반복 실패는 self-evolution 후보로 기록한다.
 
-## Evidence
+## 출력 형식
 
-- Concrete repeated-failure examples or high-impact incident reference.
-- Chosen improvement type and changed path.
-- Verification output for changed mechanical checks.
-- Changelog entry and follow-up task ID when applicable.
+- Summary: 한두 줄.
+- Changed files: 경로 목록.
+- Evidence: 실행한 check와 결과.
+- Skipped checks: 이유 포함.
+- Risks: 남은 위험.
+- Next: 필요한 후속 작업.
 
-## Handoff Contract
+## Handoff
 
-- [ ] Route speculative or one-off issues back to the owning reviewer instead of changing harness rules.
-- [ ] Prefer enforceable checks over broad reminders.
-- [ ] Keep outputs concise, current-state-only, and inside `.harness/` unless a script, workflow, or skill owns the enforcement.
-- [ ] Hand deferred automation to PM with acceptance criteria and dependency notes.
+다른 역할로 넘길 때는 아래를 포함한다.
+
+- 현재 목표.
+- 완료한 작업.
+- 남은 acceptance criteria.
+- 관련 파일.
+- 검증 결과.
+- 주의할 제약.

@@ -1,33 +1,24 @@
-# Abstraction YAGNI Policy
+# Abstraction and YAGNI Policy
 
-## Purpose
+## 목적
 
-- Keep designs direct until repeated need justifies abstraction.
-- Avoid speculative layers, factories, interfaces, or configuration.
-- Prefer simple code that can evolve safely.
+필요하지 않은 추상화를 만들지 않고, 실제 중복과 변화 압력이 확인된 뒤 추상화한다.
 
-## Rules
+## 규칙
 
-- Do not add abstractions before demonstrated need.
-- Start with the simplest direct design that satisfies the current spec.
-- Introduce an abstraction when it reduces real duplication, isolates a boundary, or expresses a stable domain concept.
-- Avoid interfaces with one implementation unless needed for boundary inversion or tests.
-- Avoid generic helpers that hide domain meaning.
-- Keep configuration minimal and tied to current runtime needs.
-- Refactor toward abstraction after the second or third real use clarifies the shape.
-- Remove unused extension points and placeholder methods.
+- 새 abstraction은 호출자와 변경 이유가 명확해야 한다.
+- 미래 가능성만으로 layer, interface, factory를 만들지 않는다.
+- 중복 제거가 가독성을 해치면 중복을 일시적으로 허용하고 이유를 남긴다.
 
-## Review Checks
+## 리뷰 체크
 
-- [ ] Each abstraction has at least one current reason to exist.
-- [ ] The design is understandable without speculative future requirements.
-- [ ] Interfaces, factories, and helpers reduce real complexity.
-- [ ] Domain meaning is clearer after abstraction, not hidden.
-- [ ] Unused extension points are removed or rejected.
+- [ ] 변경이 이 정책의 목적과 충돌하지 않는다.
+- [ ] 예외가 있으면 이유와 follow-up이 있다.
+- [ ] 자동화 가능한 항목은 gate, script, test, CI 중 하나로 연결되어 있다.
 
-## Gate Evidence
+## Evidence
 
-- Rationale for any new abstraction.
-- Call sites or repeated use demonstrating need.
-- Boundary or test requirement that justifies single-implementation interfaces.
-- Diff showing unused abstraction was avoided or removed.
+- 관련 변경 파일.
+- 실행한 check.
+- 생략한 check와 이유.
+- 남은 위험.

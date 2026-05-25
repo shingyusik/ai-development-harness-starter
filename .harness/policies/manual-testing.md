@@ -1,34 +1,24 @@
 # Manual Testing Policy
 
-## Purpose
+## 목적
 
-- Record manual or browser-assisted evidence when automation cannot fully cover behavior.
-- Make manual tests repeatable without chat history.
-- Require cleanup evidence for data created during manual testing.
+자동화 공백은 독립된 manual-test evidence로 남긴다.
 
-## Rules
+## 규칙
 
-- Prefer automated unit, integration, contract, architecture, and E2E tests where practical.
-- Create a standalone `.harness/manual-tests/YYYY-MM-DD-short-name.md` artifact for uncovered behavior.
-- Manual testing may be done by a human, an agent, Playwright, browser automation, or another named tool.
-- Every artifact lists tester/tool, scope, preconditions, steps, observations, pass criteria, result, evidence, cleanup, and follow-up.
-- Steps must be specific enough for another reviewer to repeat.
-- Pass criteria must be observable and tied to the requested behavior.
-- Failed or blocked manual tests create follow-up work.
-- Test-created data must be cleaned up or have a tracked cleanup blocker.
+- 정확한 steps, observations, pass criteria를 기록한다.
+- 테스트한 사람/도구와 환경을 적는다.
+- cleanup evidence를 남긴다.
 
-## Review Checks
+## 리뷰 체크
 
-- [ ] Automation coverage was considered before accepting manual coverage.
-- [ ] The artifact is standalone and names the tester/tool used.
-- [ ] Steps, observations, and pass criteria are concrete.
-- [ ] Evidence includes screenshots, logs, traces, browser notes, or user confirmation.
-- [ ] Cleanup steps and final state are recorded.
-- [ ] Follow-up exists for any failed, blocked, or partial result.
+- [ ] 변경이 이 정책의 목적과 충돌하지 않는다.
+- [ ] 예외가 있으면 이유와 follow-up이 있다.
+- [ ] 자동화 가능한 항목은 gate, script, test, CI 중 하나로 연결되어 있다.
 
-## Gate Evidence
+## Evidence
 
-- Path to the manual test artifact.
-- Test runner, browser, tool, or human tester identity.
-- Evidence references and cleanup confirmation.
-- Linked follow-up task for unresolved findings.
+- 관련 변경 파일.
+- 실행한 check.
+- 생략한 check와 이유.
+- 남은 위험.

@@ -1,33 +1,24 @@
 # TDD Policy
 
-## Purpose
+## 목적
 
-- Protect production behavior with tests that fail before the implementation.
-- Keep implementation feedback fast and behavior-focused.
-- Allow explicit exceptions for docs and configuration-only work.
+가능한 경우 실패하는 테스트를 먼저 만들고 구현한다.
 
-## Rules
+## 규칙
 
-- For production behavior changes, write or update a failing test first.
-- Follow RED, GREEN, REFACTOR: observe failure, implement the minimum fix, then improve structure.
-- Tests describe externally meaningful behavior, contracts, errors, or boundaries.
-- Refactors keep behavior tests passing throughout the change.
-- Bug fixes include a regression test when practical.
-- Architecture and policy changes use mechanical checks when tests are not the right tool.
-- Docs/config-only batches may skip failing-test-first with an explicit reason and verification commands.
-- Do not treat manual testing as a substitute for automatable regression coverage.
+- RED: 실패하는 테스트나 재현을 만든다.
+- GREEN: 최소 구현으로 통과시킨다.
+- REFACTOR: 동작을 유지하며 정리한다.
 
-## Review Checks
+## 리뷰 체크
 
-- [ ] Production behavior changes include test evidence from the RED/GREEN path.
-- [ ] The failing test would fail against the old behavior.
-- [ ] Refactoring did not broaden behavior unexpectedly.
-- [ ] Docs/config exceptions state why a failing test is not applicable.
-- [ ] Manual tests are used only for true automation gaps.
+- [ ] 변경이 이 정책의 목적과 충돌하지 않는다.
+- [ ] 예외가 있으면 이유와 follow-up이 있다.
+- [ ] 자동화 가능한 항목은 gate, script, test, CI 중 하나로 연결되어 있다.
 
-## Gate Evidence
+## Evidence
 
-- Test file path and command output.
-- Failing-test evidence or explicit docs/config exception.
-- Regression test reference for bug fixes.
-- Manual-test artifact for non-automatable behavior.
+- 관련 변경 파일.
+- 실행한 check.
+- 생략한 check와 이유.
+- 남은 위험.

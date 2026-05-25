@@ -1,44 +1,40 @@
-## Summary
+# Pull Request
 
-<!-- What changed and why. Keep this to one or two sentences. -->
+## 목적
 
-## Type
+- 무엇을 바꾸는 PR인지 짧게 설명한다.
 
-- [ ] Feature
-- [ ] Bug fix
-- [ ] Documentation
-- [ ] Harness / process
-- [ ] Chore
+## 관련 작업
 
-## Harness Context
+- Roadmap:
+- Milestone:
+- Task:
+- Issue/Decision:
 
-- Active role:
-- Planning task or decision record:
-- Relevant policies:
-- Relevant gates:
-
-## What Changed
+## 변경 파일
 
 -
 
-## Verification
+## 검증
 
-- [ ] `python scripts/check_docs_harness.py`
-- [ ] `python scripts/harness/check_planning_graph.py`
 - [ ] `python scripts/harness/check_harness_contract.py`
+- [ ] `python scripts/harness/check_planning_graph.py`
 - [ ] `python scripts/harness/check_documentation_policy.py`
-- [ ] Project-specific checks from `.harness/config.yaml`:
-- [ ] Manual checks or skip reason:
+- [ ] `python scripts/check_docs_harness.py`
+- [ ] 프로젝트별 테스트/lint/typecheck/build
 
-## Review Checklist
+## 리뷰 게이트
 
-- [ ] Scope matches the request and planning entry.
-- [ ] Durable harness guidance remains under `.harness/`.
-- [ ] New or changed rules are reflected in a policy, gate, check, or template.
-- [ ] Repeated failures are routed to self-evolution follow-up when needed.
-- [ ] Secrets, local paths, and private workflow details are not included.
+- [ ] Acceptance criteria 충족.
+- [ ] 변경 범위가 승인된 scope 안에 있음.
+- [ ] Clean Code 기준 확인.
+- [ ] Architecture/dependency drift 없음.
+- [ ] 문서는 현재 상태 중심.
+- [ ] 자동화 공백은 manual-test artifact로 기록.
+- [ ] cleanup 필요 항목 처리 또는 추적.
 
-## Notes
+## 생략한 검증
 
-<!-- Risks, assumptions, skipped checks, or reviewer focus areas. -->
-
+- 생략한 명령:
+- 이유:
+- 후속 조치:

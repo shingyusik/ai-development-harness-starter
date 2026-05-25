@@ -1,33 +1,24 @@
 # Branch Ownership Policy
 
-## Purpose
+## 목적
 
-- Keep branch responsibilities explicit and reviewable.
-- Prevent unsafe direct merges to shared branches.
-- Avoid overlapping ownership across agents and workstreams.
+branch와 worktree의 책임을 명확히 해서 충돌과 범위 오염을 줄인다.
 
-## Rules
+## 규칙
 
-- Each branch has one primary owner role for the active batch.
-- Feature, fix, harness, and docs branches merge to `develop` through PR.
-- `develop` merges to `main` through PR.
-- Do not merge directly into `develop` or `main` outside the approved PR path.
-- Avoid assigning the same files to multiple owners unless coordination is explicit.
-- Rebase, merge, or resolve conflicts only after inspecting affected user or peer changes.
-- Do not revert unrelated changes to make the current branch easier.
-- Branch state should be explainable from task, milestone, and changed files.
+- 작업 branch는 하나의 목적을 가진다.
+- dirty file을 덮어쓰지 않는다.
+- PR 전 base branch와 diff scope를 확인한다.
 
-## Review Checks
+## 리뷰 체크
 
-- [ ] The branch has a clear owner and task scope.
-- [ ] Shared branch changes are proposed through PR.
-- [ ] Overlapping file ownership is resolved or documented.
-- [ ] Conflict resolution preserves unrelated work.
-- [ ] The changed-file list matches the branch purpose.
+- [ ] 변경이 이 정책의 목적과 충돌하지 않는다.
+- [ ] 예외가 있으면 이유와 follow-up이 있다.
+- [ ] 자동화 가능한 항목은 gate, script, test, CI 중 하나로 연결되어 있다.
 
-## Gate Evidence
+## Evidence
 
-- Branch name, owner role, and task identifier.
-- PR link when merging to `develop` or `main`.
-- Changed-file list.
-- Notes for any coordinated overlapping ownership.
+- 관련 변경 파일.
+- 실행한 check.
+- 생략한 check와 이유.
+- 남은 위험.

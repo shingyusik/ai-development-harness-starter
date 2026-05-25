@@ -1,37 +1,37 @@
 # Local Dev Data Review Gate
 
-## Inputs
+## 목적
 
-- `.harness/policies/local-development-data.md`
-- `.harness/config.yaml` local mock/test data command references.
-- Fixtures, factories, seed scripts, generators, and teardown code.
-- Automated or manual tests that create local data.
+로컬 테스트 데이터가 deterministic하고 cleanup 가능한지 확인한다.
+
+## 입력
+
+- 사용자 요청 또는 PR 설명.
+- 관련 roadmap/milestone/task.
+- 변경 파일 목록.
+- 관련 policy.
+- 실행한 checks와 결과.
 
 ## Required Checks
 
-- [ ] Use deterministic fixtures, factories, seed scripts, or generators for non-trivial states.
-- [ ] Document the source-of-truth path, owner, deterministic seed or fixed identifiers, and supported scenario states.
-- [ ] Scope generated records with a marker, prefix, fixed ID, or equivalent tag so cleanup targets only test-created data.
-- [ ] Provide a cleanup or reset command for every generator.
-- [ ] Ensure cleanup is scoped, idempotent, and never targets production data.
-- [ ] Cover common, empty, edge, and failure states where relevant.
-- [ ] Avoid private manual state, production credentials, or production data.
-- [ ] Record manual cleanup owner and final state when automation cannot clean up.
-- [ ] Capture evidence output for setup plus cleanup/reset results.
+- [ ] Acceptance criteria가 명확하고 충족됐다.
+- [ ] 변경 범위가 승인된 scope 안에 있다.
+- [ ] 관련 policy와 충돌하지 않는다.
+- [ ] 필요한 자동화 check가 통과했다.
+- [ ] 생략한 check는 이유와 follow-up이 있다.
+- [ ] manual evidence가 필요한 경우 artifact가 있다.
 
 ## Evidence
 
-- Generator, fixture, factory, seed, or teardown source-of-truth path and owner.
-- Deterministic seed, fixed IDs, supported scenarios, and scope marker/prefix.
-- Cleanup or reset command output.
-- Test output or manual artifact showing setup and cleanup ran.
-- Rationale for any temporary manual setup.
+- Changed files.
+- Command outputs 또는 CI links.
+- Manual-test path, 필요한 경우.
+- Cleanup evidence, 필요한 경우.
+- 남은 risk와 follow-up.
 
 ## Fails When
 
-- Local setup depends on private manual state.
-- Generated data cannot be identified for scoped cleanup.
-- Cleanup is missing, unsafe, or not idempotent.
-- Production data or credentials are required.
-- Evidence output is missing for generator setup or cleanup/reset.
-- Manual cleanup lacks owner, steps, and final-state evidence.
+- acceptance criteria가 검증 불가능하다.
+- required check가 실패했다.
+- scope 밖 변경이 섞였다.
+- evidence 없이 중요한 검증을 생략했다.

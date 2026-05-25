@@ -1,43 +1,24 @@
 # External Sync Policy
 
-## Purpose
+## 목적
 
-- Keep local repo state authoritative for harness decisions, planning, policies, gates, templates, and stable state.
-- Allow external views only as downstream mirrors or preserved references.
-- Avoid process-note sprawl when harness state is displayed outside the repo.
+외부 지식 저장소와 dashboard는 로컬 repo state 이후에 동기화한다.
 
-## Rules
+## 규칙
 
-- Local repo state remains authoritative.
-- External sync is downstream and read-only with respect to harness design decisions.
-- External tools may display or preserve harness state; they must not override local repo state.
-- External sync happens only after local harness state is committed or otherwise explicitly recorded in repo files.
-- External sync must not drive local harness design, sequencing, or acceptance criteria.
-- Each synced decision or stable state artifact uses one consolidated source-preserving document.
-- No secrets or credentials are synced.
-- External sync is optional and never required for a generic starter.
+- 로컬 `.harness/`가 authoritative하다.
+- 외부 sync는 source를 보존한다.
+- incremental process note를 남발하지 않는다.
 
-## Review Checks
+## 리뷰 체크
 
-- [ ] Local repo state remains the source of truth.
-- [ ] The sync target is downstream and read-only for harness decisions.
-- [ ] The sync uses one consolidated source-preserving document per decision or stable state artifact.
-- [ ] Source paths, artifact identity, sync date/tool, and update strategy are present.
-- [ ] No secrets or credentials are included.
+- [ ] 변경이 이 정책의 목적과 충돌하지 않는다.
+- [ ] 예외가 있으면 이유와 follow-up이 있다.
+- [ ] 자동화 가능한 항목은 gate, script, test, CI 중 하나로 연결되어 있다.
 
-## Gate Evidence
+## Evidence
 
-- Source repo path for each synced artifact.
-- Destination name and document identity.
-- Sync date/tool and update strategy.
-- Confirmation that the local source was committed or explicitly recorded before sync.
-
-## Forbidden
-
-- External tools overriding local repo state.
-- External sync driving harness design decisions.
-- Incremental process-note sprawl.
-- One-message-per-update knowledge files.
-- Syncing secrets, credentials, tokens, or private runtime values.
-- Treating any external destination as required harness infrastructure.
-
+- 관련 변경 파일.
+- 실행한 check.
+- 생략한 check와 이유.
+- 남은 위험.

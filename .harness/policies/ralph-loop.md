@@ -1,33 +1,24 @@
 # RALPH Loop Policy
 
-## Purpose
+## 목적
 
-- Keep repo-first agent work moving through a repeatable loop.
-- Align autonomous batches with roadmap, tests, review, and evidence.
-- Avoid broad documentation sprawl while preserving durable rules.
+긴 autonomous work를 plan, act, verify, review loop로 관리한다.
 
-## Rules
+## 규칙
 
-- Follow the loop: plan, implement, test, verify, review or PR.
-- Start from repo files and planning state, not chat memory alone.
-- Keep each batch directly workable, coherent, and bounded.
-- Load only the policy, gate, role, and planning context needed for the batch.
-- Prefer code, tests, scripts, gates, and concise policies over long manuals.
-- Report evidence before claiming completion.
-- When repeated failures appear, route them into self-evolution work.
-- Do not expand a batch into later roadmap tasks without explicit scope.
+- 작업을 작게 나눈다.
+- 각 loop는 evidence로 끝난다.
+- 실패는 다음 loop의 입력이다.
 
-## Review Checks
+## 리뷰 체크
 
-- [ ] The batch maps to a ready task or an explicitly approved exception.
-- [ ] Scope stayed within allowed files and requested behavior.
-- [ ] Verification commands were run or blockers were recorded.
-- [ ] Evidence is attached to the final report.
-- [ ] Any recurring failure pattern has a follow-up path.
+- [ ] 변경이 이 정책의 목적과 충돌하지 않는다.
+- [ ] 예외가 있으면 이유와 follow-up이 있다.
+- [ ] 자동화 가능한 항목은 gate, script, test, CI 중 하나로 연결되어 있다.
 
-## Gate Evidence
+## Evidence
 
-- Task or roadmap identifier for the batch.
-- Changed-file list.
-- Verification command outputs.
-- Follow-up tasks for scope intentionally deferred.
+- 관련 변경 파일.
+- 실행한 check.
+- 생략한 check와 이유.
+- 남은 위험.

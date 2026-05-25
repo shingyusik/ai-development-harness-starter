@@ -1,66 +1,42 @@
-# Manual Test: <short name>
+# Manual Test: <name>
 
-## Reference
+Date:
+Tester:
+Tool:
+Environment:
+Related task/PR:
 
-- Task/spec reference:
-- Tester/tool:
-- Date:
-- Scope:
-- Environment:
+## 목적
 
-## Preconditions
+- 무엇을 수동으로 확인하는가.
 
-- [ ] Required services, flags, accounts, data, or browser state:
-- [ ] Automation gap or reason this is manual:
+## 사전 조건
 
-## Steps
+-
+
+## 단계
 
 1.
 2.
 3.
 
-## Observations
+## 관찰 결과
 
-- Step/result notes:
-- Errors, logs, screenshots, traces, or browser notes:
+-
 
-## Pass Criteria
+## 통과 기준
 
-- [ ] Expected behavior is observable:
-- [ ] No unrelated regression observed:
-- [ ] Cleanup can be completed or a blocker is tracked:
-
-## Result
-
-- [ ] Pass
-- [ ] Fail
-- [ ] Blocked
-- Summary:
+- [ ]
 
 ## Evidence
 
-- Evidence paths/links:
-- Related command output, screenshot, trace, log, or confirmation:
+- Screenshot/log/link:
 
-## Created Test Data
+## Cleanup
 
-- Records, accounts, files, workspaces, runs, or external resources created:
-- Owner or cleanup responsibility:
+- [ ] cleanup 완료.
+- cleanup command/evidence:
 
-## Cleanup Steps
+## 남은 위험
 
-1.
-2.
-3.
-
-## Final State
-
-- [ ] Test-created data removed
-- [ ] Environment returned to pre-test state
-- [ ] Remaining cleanup blocker is linked below
-- Final state notes:
-
-## Follow-up
-
-- Required follow-up for failed, blocked, partial, or manual-only coverage:
-- Tracking link or task ID:
+-

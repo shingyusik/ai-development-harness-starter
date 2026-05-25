@@ -1,33 +1,24 @@
 # Self-Evolution Policy
 
-## Purpose
+## 목적
 
-- Convert repeated failures into durable harness improvements.
-- Keep the harness small, executable, and grounded in observed problems.
-- Prefer enforceable fixes over reminders.
+반복 실패를 하네스 개선으로 바꾼다.
 
-## Rules
+## 규칙
 
-- A repeated failure is a pattern seen in review, CI, manual testing, production, or agent execution.
-- Repeated failures become a policy, gate, script, test, lint rule, workflow, template, or skill improvement.
-- Prefer the smallest improvement that prevents or detects the failure earlier.
-- Avoid broad manuals when a mechanical check can enforce the invariant.
-- Record harness-level changes in `.harness/CHANGELOG.md`.
-- Keep retrospectives concise and action-oriented.
-- Do not add self-evolution work without evidence of the failure pattern.
-- Track follow-up tasks when the improvement cannot be implemented immediately.
+- 같은 지적이 반복되면 policy/gate/script/test/template 중 하나를 고친다.
+- 새 문서보다 기존 source-of-truth 개선을 우선한다.
+- 변경은 changelog에 남긴다.
 
-## Review Checks
+## 리뷰 체크
 
-- [ ] The failure pattern is concrete and recurring.
-- [ ] The proposed improvement would catch or prevent the pattern.
-- [ ] The improvement is placed in the right harness artifact.
-- [ ] The change does not create broad process sprawl.
-- [ ] Changelog or planning updates reflect durable harness changes.
+- [ ] 변경이 이 정책의 목적과 충돌하지 않는다.
+- [ ] 예외가 있으면 이유와 follow-up이 있다.
+- [ ] 자동화 가능한 항목은 gate, script, test, CI 중 하나로 연결되어 있다.
 
-## Gate Evidence
+## Evidence
 
-- Examples of the repeated failure.
-- Chosen improvement type and file path.
-- Verification output for new checks when applicable.
-- Linked follow-up task for deferred automation.
+- 관련 변경 파일.
+- 실행한 check.
+- 생략한 check와 이유.
+- 남은 위험.

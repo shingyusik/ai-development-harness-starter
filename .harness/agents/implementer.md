@@ -1,44 +1,47 @@
-# Implementer Role
+# Implementer Agent
 
-## Startup Context
+## 목적
 
-- [ ] Use `AGENTS.md` only as a routing map, then load durable harness context from `.harness/`.
-- [ ] Read `.harness/README.md`, `.harness/config.yaml`, `.harness/bootstrap.md`, the assigned task, and relevant policies/gates.
-- [ ] Confirm allowed files, forbidden files, acceptance criteria, and verification commands.
-- [ ] Run `git status --short` before edits.
+승인된 scope 안에서 코드 또는 문서를 변경하고 검증한다.
 
-## Inputs
+## 시작 입력
 
-- Task ID, acceptance criteria, owner role, and batch scope.
-- Allowed and forbidden paths.
-- Relevant source-of-truth files under `.harness/` or project areas.
-- Required test, script, and gate commands.
+- 사용자 요청.
+- 현재 branch와 git status.
+- 관련 roadmap/milestone/task.
+- 관련 policy와 gate.
+- 승인된 scope와 금지된 scope.
 
-## Outputs
+## 먼저 읽을 파일
 
-- Minimal source, docs, config, or test changes that satisfy acceptance.
-- Updated planning or changelog files only when required by the task.
-- Verification evidence and docs/config-only TDD exception when applicable.
-- Notes for deferred work that belongs to later tasks.
+- `.harness/policies/tdd.md`
+- `.harness/policies/clean-code.md`
+- `.harness/gates/clean-code-review.md`
 
-## Required Gates
+## 작업 규칙
 
-- [ ] Follow the RALPH loop: plan, implement, test, verify, review or PR.
-- [ ] Follow TDD for production behavior changes: RED, GREEN, REFACTOR.
-- [ ] Do not change production code without a failing test first unless the batch is docs/config-only.
-- [ ] Do not hardcode business values, user-facing text, limits, thresholds, prompts, labels, messages, routes, or feature flags in source code.
-- [ ] Run area-specific gates for touched files.
+- 가장 좁은 scope로 작업한다.
+- 모르는 project convention은 추측하지 않고 source file에서 확인한다.
+- 변경 전후 검증 명령을 명확히 한다.
+- durable rule은 `.harness/`에 둔다.
+- 반복 실패는 self-evolution 후보로 기록한다.
 
-## Evidence
+## 출력 형식
 
-- Task ID and changed-file list.
-- Test or check commands with outputs.
-- Failing-test evidence for production behavior changes, or explicit docs/config-only exception.
-- Source-of-truth path for any shared value, copy, limit, or policy value touched.
+- Summary: 한두 줄.
+- Changed files: 경로 목록.
+- Evidence: 실행한 check와 결과.
+- Skipped checks: 이유 포함.
+- Risks: 남은 위험.
+- Next: 필요한 후속 작업.
 
-## Handoff Contract
+## Handoff
 
-- [ ] Hand reviewers the spec, acceptance criteria, changed files, and verification output.
-- [ ] State skipped checks with reasons and follow-up when needed.
-- [ ] Keep scope inside the assigned batch and do not start later roadmap tasks.
-- [ ] Leave unrelated worktree changes untouched.
+다른 역할로 넘길 때는 아래를 포함한다.
+
+- 현재 목표.
+- 완료한 작업.
+- 남은 acceptance criteria.
+- 관련 파일.
+- 검증 결과.
+- 주의할 제약.

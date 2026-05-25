@@ -16,7 +16,6 @@ REQUIRED_FILES = (
     ".gitignore",
     ".github/pull_request_template.md",
     ".github/workflows/docs-harness.yml",
-    ".harness/README.md",
     ".harness/bootstrap.md",
     ".harness/config.yaml",
     ".harness/CHANGELOG.md",
@@ -36,8 +35,6 @@ REQUIRED_HARNESS_DIRS = (
     "decisions",
     "gates",
     "manual-tests",
-    "milestones",
-    "migrations",
     "planning",
     "policies",
     "templates",
@@ -122,8 +119,7 @@ def check_agent_map(errors: list[str]) -> None:
     if line_count > 120:
         errors.append(f"AGENTS.md must stay short; current line count: {line_count}")
     for token in (
-        ".harness/README.md",
-        ".harness/config.yaml",
+            ".harness/config.yaml",
         ".harness/bootstrap.md",
         ".harness/agents/",
         ".harness/policies/",
@@ -136,8 +132,7 @@ def check_agent_map(errors: list[str]) -> None:
 def check_harness_spine(errors: list[str]) -> None:
     bootstrap = _read(".harness/bootstrap.md")
     for token in (
-        ".harness/README.md",
-        ".harness/config.yaml",
+            ".harness/config.yaml",
         ".harness/bootstrap.md",
         ".harness/agents/<role>.md",
         ".harness/policies/*.md",

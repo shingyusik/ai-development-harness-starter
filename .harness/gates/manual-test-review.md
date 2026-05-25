@@ -1,33 +1,37 @@
 # Manual Test Review Gate
 
-## Inputs
+## 목적
 
-- `.harness/policies/manual-testing.md`
-- Changed behavior and automation evidence.
-- Manual or browser-assisted test artifact when automation has a gap.
+자동화 공백에 대한 manual-test evidence가 충분한지 확인한다.
+
+## 입력
+
+- 사용자 요청 또는 PR 설명.
+- 관련 roadmap/milestone/task.
+- 변경 파일 목록.
+- 관련 policy.
+- 실행한 checks와 결과.
 
 ## Required Checks
 
-- [ ] Prefer automated coverage before accepting manual-only evidence.
-- [ ] Create a standalone artifact when behavior cannot be fully automated.
-- [ ] Include tester or tool, scope, preconditions, and environment.
-- [ ] Write exact repeatable steps.
-- [ ] Record observations tied to the requested behavior.
-- [ ] Define observable pass criteria.
-- [ ] Attach evidence such as screenshots, logs, traces, browser notes, or user confirmation.
-- [ ] Record cleanup steps, final state, and follow-up for unresolved gaps.
+- [ ] Acceptance criteria가 명확하고 충족됐다.
+- [ ] 변경 범위가 승인된 scope 안에 있다.
+- [ ] 관련 policy와 충돌하지 않는다.
+- [ ] 필요한 자동화 check가 통과했다.
+- [ ] 생략한 check는 이유와 follow-up이 있다.
+- [ ] manual evidence가 필요한 경우 artifact가 있다.
 
 ## Evidence
 
-- Path to the manual test artifact.
-- Relevant automated test output or automation-gap rationale.
-- Evidence artifact paths or links.
-- Cleanup confirmation and linked follow-up task when needed.
+- Changed files.
+- Command outputs 또는 CI links.
+- Manual-test path, 필요한 경우.
+- Cleanup evidence, 필요한 경우.
+- 남은 risk와 follow-up.
 
 ## Fails When
 
-- Manual testing replaces practical automated coverage.
-- Steps, observations, or pass criteria are too vague to repeat.
-- Evidence is missing or not tied to the behavior.
-- Test-created data lacks cleanup evidence.
-- Failed, blocked, or partial results have no follow-up.
+- acceptance criteria가 검증 불가능하다.
+- required check가 실패했다.
+- scope 밖 변경이 섞였다.
+- evidence 없이 중요한 검증을 생략했다.

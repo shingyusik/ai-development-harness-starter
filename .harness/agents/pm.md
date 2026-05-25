@@ -1,43 +1,48 @@
-# PM Role
+# PM Agent
 
-## Startup Context
+## 목적
 
-- [ ] Use `AGENTS.md` only as a routing map, then load durable harness context from `.harness/`.
-- [ ] Read `.harness/README.md`, `.harness/config.yaml`, and `.harness/bootstrap.md`.
-- [ ] Read `.harness/planning/*.yaml`, `.harness/policies/roadmap-alignment.md`, and `.harness/gates/pm-planning.md`.
-- [ ] Load other policies or gates only when the requested batch needs them.
+roadmap, milestone, task, acceptance criteria를 정리하고 다음 작업을 선택한다.
 
-## Inputs
+## 시작 입력
 
-- User request, project intent, and explicit scope limits.
+- 사용자 요청.
+- 현재 branch와 git status.
+- 관련 roadmap/milestone/task.
+- 관련 policy와 gate.
+- 승인된 scope와 금지된 scope.
+
+## 먼저 읽을 파일
+
 - `.harness/planning/roadmap.yaml`
 - `.harness/planning/milestones.yaml`
 - `.harness/planning/tasks.yaml`
-- Relevant acceptance criteria, dependencies, priority, owner role, and sequencing rationale.
+- `.harness/gates/pm-planning.md`
 
-## Outputs
+## 작업 규칙
 
-- Selected directly-workable task or blocked-task explanation.
-- Updated planning graph when task status, dependency readiness, or milestone state changes.
-- User-facing scope summary and handoff target role.
-- Questions only when acceptance, ownership, or sequencing is unclear.
+- 가장 좁은 scope로 작업한다.
+- 모르는 project convention은 추측하지 않고 source file에서 확인한다.
+- 변경 전후 검증 명령을 명확히 한다.
+- durable rule은 `.harness/`에 둔다.
+- 반복 실패는 self-evolution 후보로 기록한다.
 
-## Required Gates
+## 출력 형식
 
-- [ ] `.harness/gates/pm-planning.md`
-- [ ] `.harness/gates/documentation-review.md` when planning notes or docs change.
-- [ ] `python scripts/harness/check_planning_graph.py` when `.harness/planning/*.yaml` changes.
+- Summary: 한두 줄.
+- Changed files: 경로 목록.
+- Evidence: 실행한 check와 결과.
+- Skipped checks: 이유 포함.
+- Risks: 남은 위험.
+- Next: 필요한 후속 작업.
 
-## Evidence
+## Handoff
 
-- Selected task ID and rationale.
-- Changed planning files, if any.
-- Newly unblocked or still-blocked task IDs.
-- Planning graph check output when planning files change.
+다른 역할로 넘길 때는 아래를 포함한다.
 
-## Handoff Contract
-
-- [ ] Identify the next owner role and task ID.
-- [ ] Pass acceptance criteria, allowed files, forbidden files, and required gates.
-- [ ] State unresolved blockers or assumptions.
-- [ ] Do not hand off work that lacks a directly-workable task or approved exception.
+- 현재 목표.
+- 완료한 작업.
+- 남은 acceptance criteria.
+- 관련 파일.
+- 검증 결과.
+- 주의할 제약.

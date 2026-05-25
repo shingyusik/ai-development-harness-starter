@@ -1,34 +1,37 @@
 # Dependency Review Gate
 
-## Inputs
+## 목적
 
-- `.harness/policies/dependency-control.md`
-- Dependency manifest and lockfile diffs.
-- Changed integration, adapter, and build files.
+새 의존성, dependency direction, coupling risk를 확인한다.
+
+## 입력
+
+- 사용자 요청 또는 PR 설명.
+- 관련 roadmap/milestone/task.
+- 변경 파일 목록.
+- 관련 policy.
+- 실행한 checks와 결과.
 
 ## Required Checks
 
-- [ ] Prefer existing repo code, platform APIs, or standard libraries first.
-- [ ] State the reason, owner, and expected update path for each new dependency.
-- [ ] Review security, license, maintenance, runtime, and bundle impact where relevant.
-- [ ] Confirm versions are pinned or managed through the repo lock path.
-- [ ] Review lockfile changes for expected packages only.
-- [ ] Contain third-party coupling behind a narrow boundary when practical.
-- [ ] Remove unused dependencies with matching manifest and lockfile changes.
-- [ ] Record rollback or replacement path for high-impact dependencies.
+- [ ] Acceptance criteria가 명확하고 충족됐다.
+- [ ] 변경 범위가 승인된 scope 안에 있다.
+- [ ] 관련 policy와 충돌하지 않는다.
+- [ ] 필요한 자동화 check가 통과했다.
+- [ ] 생략한 check는 이유와 follow-up이 있다.
+- [ ] manual evidence가 필요한 경우 artifact가 있다.
 
 ## Evidence
 
-- Dependency manifest diff.
-- Lockfile diff or package manager output.
-- Justification with owner and update path.
-- Security, license, or size evidence when relevant.
-- Test output covering dependency integration.
+- Changed files.
+- Command outputs 또는 CI links.
+- Manual-test path, 필요한 경우.
+- Cleanup evidence, 필요한 경우.
+- 남은 risk와 follow-up.
 
 ## Fails When
 
-- A dependency lacks justification, owner, or update path.
-- Lockfile changes include unexplained packages.
-- Direct coupling spreads across unrelated layers.
-- A small utility dependency replaces a reasonable platform API.
-- Removed dependencies remain referenced in code or config.
+- acceptance criteria가 검증 불가능하다.
+- required check가 실패했다.
+- scope 밖 변경이 섞였다.
+- evidence 없이 중요한 검증을 생략했다.

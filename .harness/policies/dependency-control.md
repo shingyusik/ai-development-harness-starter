@@ -1,33 +1,24 @@
 # Dependency Control Policy
 
-## Purpose
+## 목적
 
-- Add dependencies only when they solve a real project problem.
-- Keep ownership, update path, and coupling impact explicit.
-- Prevent unnecessary package, service, and framework coupling.
+의존성 추가와 방향을 통제한다.
 
-## Rules
+## 규칙
 
-- New runtime or tooling dependencies need a stated reason and owner.
-- Prefer existing repo libraries and helpers before adding a dependency.
-- Evaluate license, maintenance, security, bundle/runtime cost, and ecosystem fit.
-- Dependency versions are locked or managed through the repo's normal lock path.
-- Boundary wrappers isolate third-party APIs when direct coupling would spread.
-- Remove unused dependencies with the same care as adding new ones.
-- Avoid dependencies for small utilities the platform or standard library already covers.
-- Record update and rollback paths for high-impact dependencies.
+- 새 package/library는 필요성과 대안을 기록한다.
+- 순환 의존성을 만들지 않는다.
+- runtime dependency와 dev dependency를 구분한다.
 
-## Review Checks
+## 리뷰 체크
 
-- [ ] The dependency is necessary for the requested behavior.
-- [ ] Existing code or platform APIs cannot reasonably cover the need.
-- [ ] Owner, lock/update path, and risk are clear.
-- [ ] Coupling is contained behind a narrow interface when practical.
-- [ ] Security, license, and size/runtime impacts are acceptable.
+- [ ] 변경이 이 정책의 목적과 충돌하지 않는다.
+- [ ] 예외가 있으면 이유와 follow-up이 있다.
+- [ ] 자동화 가능한 항목은 gate, script, test, CI 중 하나로 연결되어 있다.
 
-## Gate Evidence
+## Evidence
 
-- Dependency diff and lockfile diff.
-- Justification, owner, and update path.
-- Security or license review when relevant.
-- Test output covering integration with the dependency.
+- 관련 변경 파일.
+- 실행한 check.
+- 생략한 check와 이유.
+- 남은 위험.

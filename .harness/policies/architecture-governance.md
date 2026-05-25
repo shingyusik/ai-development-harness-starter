@@ -1,31 +1,24 @@
 # Architecture Governance Policy
 
-## Purpose
+## 목적
 
-- Preserve the architecture boundaries declared by the adopting project.
-- Keep architecture docs current-state-only.
-- Make dependency direction reviewable and mechanically checked where practical.
+프로젝트의 architecture boundary와 dependency direction을 지킨다.
 
-## Rules
+## 규칙
 
-- Declare project layers, modules, packages, or service boundaries before enforcing them.
-- Code should depend inward toward stable domain concepts and outward only through explicit adapters or interfaces.
-- Runtime, storage, network, access-control, queue, and external-service details stay behind the boundary chosen by the project.
-- Architecture docs describe current boundaries, not migration history.
-- Boundary changes update architecture docs and checks in the same batch when practical.
-- New architecture exceptions require rationale and follow-up to remove or codify them.
+- domain은 framework 세부사항에 의존하지 않는다.
+- 상위 layer가 하위 layer 구현 세부사항을 직접 알지 않는다.
+- 새 dependency는 이유와 boundary를 설명한다.
 
-## Review Checks
+## 리뷰 체크
 
-- [ ] Imports and calls follow declared dependency direction.
-- [ ] Runtime, storage, network, access-control, queue, and external-service boundaries are preserved.
-- [ ] New adapters isolate framework or third-party details.
-- [ ] Architecture docs changed when boundaries or contracts changed.
-- [ ] Existing architecture checks pass or gaps are tracked.
+- [ ] 변경이 이 정책의 목적과 충돌하지 않는다.
+- [ ] 예외가 있으면 이유와 follow-up이 있다.
+- [ ] 자동화 가능한 항목은 gate, script, test, CI 중 하나로 연결되어 있다.
 
-## Gate Evidence
+## Evidence
 
-- Architecture test, lint, or review output.
-- Diff for changed architecture docs or contracts.
-- Rationale for any temporary boundary exception.
-- Follow-up task for missing mechanical coverage.
+- 관련 변경 파일.
+- 실행한 check.
+- 생략한 check와 이유.
+- 남은 위험.

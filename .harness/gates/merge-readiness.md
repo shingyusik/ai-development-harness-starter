@@ -1,45 +1,37 @@
 # Merge Readiness Gate
 
-## Inputs
+## 목적
 
-- Requested spec, task, issue, or PR description.
-- Required gate results for changed areas.
-- `.harness/config.yaml` `required_checks` manifest.
-- `.harness/planning/*.yaml` and harness contract evidence when touched.
-- CI, test, documentation, manual-test, and cleanup evidence.
+PR이 acceptance, tests, CI, docs, cleanup 기준을 모두 만족하는지 확인한다.
+
+## 입력
+
+- 사용자 요청 또는 PR 설명.
+- 관련 roadmap/milestone/task.
+- 변경 파일 목록.
+- 관련 policy.
+- 실행한 checks와 결과.
 
 ## Required Checks
 
-- [ ] Confirm the implementation matches the requested spec and acceptance criteria.
-- [ ] Confirm changed files stay within approved scope.
-- [ ] Confirm all required review gates have passed or are explicitly not applicable.
-- [ ] Confirm required checks from `.harness/config.yaml` have evidence or documented skip reasons.
-- [ ] Confirm tests and local quality checks cover the touched areas.
-- [ ] Confirm CI required checks pass when CI is available.
-- [ ] Confirm documentation updates are current-state-only and correctly located.
-- [ ] Confirm hardcoding review passed for changed numbers, messages, limits, thresholds, prompts, labels, routes, and feature flags.
-- [ ] Confirm shared values have one source of truth; split config/data files do not duplicate the same logical variable/message.
-- [ ] Confirm manual-test artifacts exist for automation gaps.
-- [ ] Confirm generated or test-created data was cleaned up or tracked.
-- [ ] Confirm planning graph and harness contract checks pass when applicable.
-- [ ] Confirm no required gate remains unresolved before merge.
+- [ ] Acceptance criteria가 명확하고 충족됐다.
+- [ ] 변경 범위가 승인된 scope 안에 있다.
+- [ ] 관련 policy와 충돌하지 않는다.
+- [ ] 필요한 자동화 check가 통과했다.
+- [ ] 생략한 check는 이유와 follow-up이 있다.
+- [ ] manual evidence가 필요한 경우 artifact가 있다.
 
 ## Evidence
 
-- Spec, task, issue, or PR link.
-- Changed-file list.
-- Required-check manifest path: `.harness/config.yaml`.
-- Test, CI, docs, planning, and harness command output.
-- JSON/config source paths for shared values touched by the change and duplicate-check notes for split files.
-- Manual-test artifact paths.
-- Cleanup evidence and unresolved follow-up links.
+- Changed files.
+- Command outputs 또는 CI links.
+- Manual-test path, 필요한 경우.
+- Cleanup evidence, 필요한 경우.
+- 남은 risk와 follow-up.
 
 ## Fails When
 
-- Acceptance criteria are incomplete or unverifiable.
-- A required gate is failing, missing, or unresolved.
-- CI or local required checks fail.
-- Hardcoded shared values or user-facing messages remain in source code without approved local-only rationale.
-- The same logical variable/message is duplicated across config/data files instead of sharing one source of truth.
-- Manual-test or cleanup evidence is missing where required.
-- Scope includes unrelated work without explicit approval.
+- acceptance criteria가 검증 불가능하다.
+- required check가 실패했다.
+- scope 밖 변경이 섞였다.
+- evidence 없이 중요한 검증을 생략했다.
