@@ -6,6 +6,13 @@
 
 - 하네스 스타터 문서를 한국어 리뷰용 초안으로 다시 작성했다.
 - 최종 운용 문구는 피드백 후 영어로 정리한다.
+- 하네스 starter 방향을 Codex-first로 정리하고 공식 Codex subagents/custom agents와 skills 구조를 추가했다.
+
+### Added
+
+- `.codex/config.toml`: Codex subagent global settings.
+- `.codex/agents/*.toml`: Codex custom agents for harness roles.
+- `.agents/skills/*/SKILL.md`: Codex repo-scoped harness skills.
 
 ### Removed
 

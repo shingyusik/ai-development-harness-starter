@@ -1,0 +1,11 @@
+# Project-scoped Codex subagent configuration.
+# Codex reads this when launched from this repository.
+
+[agents]
+# Keep fan-out bounded. Codex defaults are currently max_threads=6 and
+# max_depth=1, but the starter pins them so projects review changes explicitly.
+max_threads = 6
+max_depth = 1
+
+# Optional default timeout for experimental spawn_agents_on_csv workers.
+job_max_runtime_seconds = 1800

@@ -2,20 +2,33 @@
 
 ## 목적
 
-이 파일은 `AGENTS.md`를 통해 하네스 모드로 들어온 agent가 따르는 **최소 운영 계약**이다.
+이 파일은 `AGENTS.md`를 통해 하네스 모드로 들어온 Codex가 따르는 **최소 운영 계약**이다.
 
 - 프로젝트별 소스코드 지침은 루트 `AGENTS.md`가 담당한다.
+- Codex subagent/custom agent 설정은 `.codex/config.toml`과 `.codex/agents/*.toml`이 담당한다.
+- Codex repo skill은 `.agents/skills/*/SKILL.md`가 담당한다.
 - 기계 판독 manifest와 required checks는 `.harness/config.yaml`이 담당한다.
 - 이 파일 `.harness/bootstrap.md`는 role 선택, 필요한 하네스 문서 로딩, 편집 전 확인, 보고 형식만 정의한다.
 
 ## 하네스 로딩 순서
 
-1. `.harness/config.yaml`에서 required files, checks, source-of-truth path를 확인한다.
-2. 요청에 맞는 가장 좁은 role을 고르고 `.harness/agents/<role>.md`를 읽는다.
-3. 작업에 필요한 `.harness/policies/*.md`만 읽는다.
-4. 검토나 merge 판단이 필요하면 관련 `.harness/gates/*.md`만 읽는다.
-5. planning 관련 작업이면 `.harness/planning/*.yaml`을 읽는다.
-6. manual evidence나 report가 필요하면 `.harness/templates/*.md`를 읽는다.
+1. `.codex/config.toml`에서 `agents.max_threads`, `agents.max_depth`, job timeout을 확인한다.
+2. `.codex/agents/*.toml`에서 작업에 맞는 Codex custom agent 후보를 확인한다.
+3. `.agents/skills/*/SKILL.md`에서 작업에 맞는 Codex repo skill 후보를 확인한다.
+4. `.harness/config.yaml`에서 required files, checks, source-of-truth path를 확인한다.
+5. 요청에 맞는 가장 좁은 role을 고르고 `.harness/agents/<role>.md`를 읽는다.
+6. 작업에 필요한 `.harness/policies/*.md`만 읽는다.
+7. 검토나 merge 판단이 필요하면 관련 `.harness/gates/*.md`만 읽는다.
+8. planning 관련 작업이면 `.harness/planning/*.yaml`을 읽는다.
+9. manual evidence나 report가 필요하면 `.harness/templates/*.md`를 읽는다.
+
+## Codex subagent 계약
+
+- Codex subagent는 parent가 명시적으로 요청할 때만 사용한다.
+- 기본 fan-out 한도는 `.codex/config.toml`의 `agents.max_threads = 6`, `agents.max_depth = 1`이다.
+- read-only 조사와 리뷰에는 read-only custom agent를 우선 사용한다.
+- 수정 작업은 scoped implementer/self-evolution agent로 제한한다.
+- parent Codex는 subagent 결과를 신뢰하기 전에 diff와 required checks로 독립 검증한다.
 
 ## 역할 선택
 

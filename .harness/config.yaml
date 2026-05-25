@@ -1,6 +1,22 @@
 version: 1
 harness_root: .harness
 bootstrap: .harness/bootstrap.md
+codex:
+  config: .codex/config.toml
+  required_agents:
+    - .codex/agents/harness-pm.toml
+    - .codex/agents/harness-tech-lead.toml
+    - .codex/agents/harness-implementer.toml
+    - .codex/agents/harness-spec-reviewer.toml
+    - .codex/agents/harness-quality-reviewer.toml
+    - .codex/agents/harness-architecture-reviewer.toml
+    - .codex/agents/harness-branch-manager.toml
+    - .codex/agents/harness-self-evolution.toml
+  required_skills:
+    - .agents/skills/harness-bootstrap/SKILL.md
+    - .agents/skills/harness-planning/SKILL.md
+    - .agents/skills/harness-review-gates/SKILL.md
+    - .agents/skills/harness-self-evolution/SKILL.md
 source_of_truth:
   decisions:
     - .harness/decisions/0001-harness-operating-model.md
@@ -31,6 +47,8 @@ required_checks:
     scope:
       - AGENTS.md
       - README.md
+      - .codex
+      - .agents/skills
       - .harness
       - scripts
     required_for_merge: true
@@ -58,6 +76,8 @@ required_checks:
     scope:
       - README.md
       - AGENTS.md
+      - .codex
+      - .agents/skills
       - .harness
     required_for_merge: true
     evidence: Command output or CI result showing documentation policy validation passed.

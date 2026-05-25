@@ -5,6 +5,7 @@ from __future__ import annotations
 
 from pathlib import Path
 from typing import Any
+import tomllib
 
 import yaml
 
@@ -140,6 +141,45 @@ def _check_check_paths(config: dict[str, Any], errors: list[str]) -> None:
         )
 
 
+def _check_codex_config(config: dict[str, Any], errors: list[str]) -> None:
+    codex = config.get("codex")
+    if not isinstance(codex, dict):
+        errors.append("config codex must be a mapping")
+        return
+
+    codex_config = _normalize_path(codex.get("config"))
+    if codex_config != ".codex/config.toml":
+        errors.append("config codex.config must point to .codex/config.toml")
+    elif not _repo_path(codex_config).is_file():
+        errors.append("missing Codex config file: .codex/config.toml")
+    else:
+        try:
+            codex_toml = tomllib.loads(_repo_path(codex_config).read_text(encoding="utf-8"))
+        except tomllib.TOMLDecodeError as exc:
+            errors.append(f"invalid TOML in .codex/config.toml: {exc}")
+        else:
+            agents = codex_toml.get("agents")
+            if not isinstance(agents, dict):
+                errors.append(".codex/config.toml missing [agents] table")
+            elif agents.get("max_depth") != 1:
+                errors.append(".codex/config.toml agents.max_depth must be 1")
+
+    for key, prefix in (("required_agents", ".codex/agents/"), ("required_skills", ".agents/skills/")):
+        values = codex.get(key)
+        if not isinstance(values, list) or not values:
+            errors.append(f"config codex.{key} must be a non-empty list")
+            continue
+        for item in values:
+            path = _normalize_path(item)
+            if path is None:
+                errors.append(f"invalid codex {key} path: {item!r}")
+                continue
+            if not path.startswith(prefix):
+                errors.append(f"codex {key} path must start with {prefix}: {path}")
+                continue
+            _check_existing_file(path, f"codex {key} file", errors)
+
+
 def _check_bootstrap_contract(errors: list[str]) -> None:
     bootstrap_file = _repo_path(BOOTSTRAP_PATH)
     if not bootstrap_file.is_file():
@@ -196,6 +236,7 @@ def validate() -> tuple[list[str], list[str]]:
         _check_source_of_truth(config, errors)
         _check_named_source_groups(config, errors)
         _check_check_paths(config, errors)
+        _check_codex_config(config, errors)
 
     _check_bootstrap_contract(errors)
     _check_warnings(warnings)

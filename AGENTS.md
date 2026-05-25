@@ -1,6 +1,6 @@
 # Project Agent Entry Point
 
-이 파일은 Codex, Claude Code, 그리고 다른 coding agent가 시작할 때 먼저 읽는 **프로젝트 소스코드 작업 지침**이다.
+이 파일은 Codex가 시작할 때 먼저 읽는 **프로젝트 소스코드 작업 지침**이다.
 하네스 운영 기준의 source of truth는 `.harness/`에 있지만, 이 파일은 대상 프로젝트의 코드 구조와 작업 방식을 먼저 잡아주는 얇은 entry point여야 한다.
 
 ## 프로젝트 컨텍스트를 먼저 채운다
@@ -28,10 +28,28 @@
 
 프로젝트 컨텍스트를 확인한 뒤, 필요한 만큼 하네스를 읽는다.
 
-1. `.harness/config.yaml`을 읽고 required checks와 source paths를 확인한다.
-2. `.harness/bootstrap.md`를 읽는다.
-3. `.harness/agents/`에서 가장 좁은 역할을 선택한다.
-4. 사용자 요청에 필요한 `.harness/policies/`, `.harness/gates/`, planning 파일, template만 추가로 읽는다.
+1. `.codex/config.toml`에서 subagent limits를 확인한다.
+2. `.codex/agents/`에서 필요한 Codex custom agent를 확인한다.
+3. `.agents/skills/`에서 관련 repo skill을 확인한다.
+4. `.harness/config.yaml`을 읽고 required checks와 source paths를 확인한다.
+5. `.harness/bootstrap.md`를 읽는다.
+6. `.harness/agents/`에서 가장 좁은 역할을 선택한다.
+7. 사용자 요청에 필요한 `.harness/policies/`, `.harness/gates/`, planning 파일, template만 추가로 읽는다.
+
+## Codex subagent 사용 규칙
+
+- Codex는 명시적으로 요청받을 때만 subagent를 spawn한다. 병렬 탐색, 리뷰 분할, multi-step plan 실행처럼 실제로 병렬성이 있을 때만 요청한다.
+- 기본 설정은 `.codex/config.toml`의 `agents.max_threads = 6`, `agents.max_depth = 1`을 따른다. recursive delegation은 의도적으로 설계하기 전까지 쓰지 않는다.
+- read-only 조사/리뷰는 `harness_pm`, `harness_tech_lead`, `harness_spec_reviewer`, `harness_quality_reviewer`, `harness_architecture_reviewer`, `harness_branch_manager`처럼 read-only agent를 우선 쓴다.
+- 파일 수정은 `harness_implementer`나 `harness_self_evolution`처럼 수정 목적이 명확한 agent에만 맡긴다.
+- subagent 결과는 초안으로 취급하고, parent Codex가 `git status`, targeted diff, required checks로 독립 검증한다.
+
+## Codex skills
+
+- `$harness-bootstrap`: 하네스 시작, role 선택, 체크/보고 형식 확인.
+- `$harness-planning`: roadmap, milestone, task graph 작업.
+- `$harness-review-gates`: review, merge readiness, evidence validation.
+- `$harness-self-evolution`: 반복 실패를 policy, gate, template, script, Codex agent/skill 개선으로 전환.
 
 ## 역할 라우팅
 
