@@ -35,8 +35,8 @@ python scripts/check_docs_harness.py
 
 - `.codex/`: Codex project config와 custom subagent 정의.
 - `.agents/skills/`: Codex repo-scoped skills.
-- `.harness/`: 하네스 source of truth.
-- `.harness/agents/`: 역할별 agent 계약.
+- `.harness/`: 하네스 정책, gate, planning, registry source of truth.
+- `.harness/roles.yaml`: 하네스 role을 `.codex/agents/*.toml`과 필요한 policy/gate/planning 파일에 연결하는 registry.
 - `.harness/policies/`: 지속적으로 지킬 정책.
 - `.harness/gates/`: 리뷰/머지 전 확인 기준.
 - `.harness/planning/`: roadmap, milestone, task graph.
@@ -49,7 +49,7 @@ python scripts/check_docs_harness.py
 - Codex custom agent는 `.codex/agents/<agent>.toml`에 둔다. 각 파일은 `name`, `description`, `developer_instructions`를 가져야 한다.
 - Codex skill은 `.agents/skills/<skill>/SKILL.md`에 둔다. 각 `SKILL.md`는 `name`, `description` frontmatter를 가져야 한다.
 - subagent fan-out은 명시적으로 요청할 때만 사용하고, 기본 depth는 1로 유지한다.
-- 프로젝트 고유 규칙이 생기면 `.harness/`에 기록한다.
+- 프로젝트 고유 규칙이 생기면 `.harness/`에 기록하되, 실행 가능한 role 지시문은 `.codex/agents/*.toml`에만 둔다.
 - 사람이 반복해서 지적한 문제는 policy, gate, script, test 중 하나로 바꾼다.
 - 긴 설명보다 짧은 checklist와 실행 가능한 검증을 우선한다.
 - 최종 문서는 영어로 운용해도 된다. 지금 한국어 문서는 설계 피드백용 초안이다.

@@ -4,7 +4,7 @@ model_reasoning_effort = "high"
 sandbox_mode = "read-only"
 developer_instructions = """
 Stay in planning mode.
-Read .harness/config.yaml, .harness/bootstrap.md, .harness/agents/pm.md, and the relevant .harness/planning/*.yaml files.
+Read .harness/config.yaml, .harness/bootstrap.md, .harness/roles.yaml for the pm binding, and the relevant .harness/planning/*.yaml files.
 Produce clear task decomposition, dependencies, acceptance criteria, and evidence requirements.
 Do not edit files unless the parent explicitly asks for a planning-file patch.
 """

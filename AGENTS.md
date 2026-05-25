@@ -33,7 +33,7 @@
 3. `.agents/skills/`에서 관련 repo skill을 확인한다.
 4. `.harness/config.yaml`을 읽고 required checks와 source paths를 확인한다.
 5. `.harness/bootstrap.md`를 읽는다.
-6. `.harness/agents/`에서 가장 좁은 역할을 선택한다.
+6. `.harness/roles.yaml`에서 가장 좁은 역할의 `.codex/agents/*.toml` binding과 추가 로딩 파일을 확인한다.
 7. 사용자 요청에 필요한 `.harness/policies/`, `.harness/gates/`, planning 파일, template만 추가로 읽는다.
 
 ## Codex subagent 사용 규칙
@@ -53,14 +53,16 @@
 
 ## 역할 라우팅
 
-- 계획, task 선택, acceptance criteria: `.harness/agents/pm.md`
-- 기술 접근, 순서, cross-file scope: `.harness/agents/tech-lead.md`
-- 구현 작업: `.harness/agents/implementer.md`
-- 요구사항 검토: `.harness/agents/spec-reviewer.md`
-- 검증과 evidence review: `.harness/agents/quality-reviewer.md`
-- 아키텍처와 의존성 검토: `.harness/agents/architecture-reviewer.md`
-- branch와 PR 위생: `.harness/agents/branch-manager.md`
-- 하네스 개선 작업: `.harness/agents/self-evolution.md`
+실행 가능한 역할 정의는 루트 `.codex/agents/*.toml`이 단일 source of truth다. `.harness/roles.yaml`은 하네스 role을 해당 Codex custom agent와 policy/gate/planning 파일에 연결한다.
+
+- 계획, task 선택, acceptance criteria: `.codex/agents/harness-pm.toml`
+- 기술 접근, 순서, cross-file scope: `.codex/agents/harness-tech-lead.toml`
+- 구현 작업: `.codex/agents/harness-implementer.toml`
+- 요구사항 검토: `.codex/agents/harness-spec-reviewer.toml`
+- 검증과 evidence review: `.codex/agents/harness-quality-reviewer.toml`
+- 아키텍처와 의존성 검토: `.codex/agents/harness-architecture-reviewer.toml`
+- branch와 PR 위생: `.codex/agents/harness-branch-manager.toml`
+- 하네스 개선 작업: `.codex/agents/harness-self-evolution.toml`
 
 ## 결과 보고 규칙
 

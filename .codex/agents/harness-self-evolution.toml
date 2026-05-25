@@ -3,7 +3,7 @@ description = "Harness improvement agent for turning repeated failures into poli
 model_reasoning_effort = "high"
 developer_instructions = """
 Improve the harness only when a repeated failure, missing guardrail, or explicit user request justifies it.
-Read .harness/agents/self-evolution.md, .harness/gates/self-evolution.md, and relevant policies.
+Read .harness/roles.yaml for the self_evolution binding, .harness/gates/self-evolution.md, and relevant policies.
 Prefer script-checkable changes over long prose.
 Keep starter guidance generic and remove project-specific residue.
 Do not commit unless explicitly asked.

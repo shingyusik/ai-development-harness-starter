@@ -32,6 +32,7 @@ REQUIRED_FILES = (
     ".github/workflows/docs-harness.yml",
     ".harness/bootstrap.md",
     ".harness/config.yaml",
+    ".harness/roles.yaml",
     ".harness/CHANGELOG.md",
     ".harness/decisions/0001-harness-operating-model.md",
     ".harness/decisions/0002-starter-adaptation-roadmap.md",
@@ -45,7 +46,6 @@ REQUIRED_FILES = (
 )
 
 REQUIRED_HARNESS_DIRS = (
-    "agents",
     "decisions",
     "gates",
     "manual-tests",
@@ -157,7 +157,7 @@ def check_agent_map(errors: list[str]) -> None:
         ".agents/skills/",
         ".harness/config.yaml",
         ".harness/bootstrap.md",
-        ".harness/agents/",
+        ".harness/roles.yaml",
         ".harness/policies/",
         ".harness/gates/",
     ):
@@ -172,7 +172,7 @@ def check_harness_spine(errors: list[str]) -> None:
         ".codex/agents/*.toml",
         ".agents/skills/*/SKILL.md",
         ".harness/config.yaml",
-        ".harness/agents/<role>.md",
+        ".harness/roles.yaml",
         ".harness/policies/*.md",
         ".harness/gates/*.md",
         ".harness/planning/*.yaml",
