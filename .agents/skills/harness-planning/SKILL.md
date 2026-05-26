@@ -12,7 +12,8 @@ Use this skill when editing or reviewing `.harness/planning/*.yaml`.
 - `.harness/planning/roadmap.yaml`
 - `.harness/planning/milestones.yaml`
 - `.harness/planning/tasks.yaml`
-- `.harness/agents/pm.md`
+- `.harness/roles.yaml`
+- `.codex/agents/harness-pm.toml`
 - `.harness/gates/pm-planning.md`
 
 ## Steps

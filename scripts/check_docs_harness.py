@@ -24,6 +24,7 @@ REQUIRED_FILES = (
     ".codex/agents/harness-architecture-reviewer.toml",
     ".codex/agents/harness-branch-manager.toml",
     ".codex/agents/harness-self-evolution.toml",
+    ".agents/skills/harness/SKILL.md",
     ".agents/skills/harness-bootstrap/SKILL.md",
     ".agents/skills/harness-planning/SKILL.md",
     ".agents/skills/harness-review-gates/SKILL.md",
@@ -135,10 +136,11 @@ def check_root_readme(errors: list[str]) -> None:
         "Codex-first",
         ".codex/agents/*.toml",
         ".agents/skills/*/SKILL.md",
+        ".agents/skills/harness/SKILL.md",
         ".agents/skills/harness-bootstrap/SKILL.md",
         ".harness/bootstrap.md",
         "AGENTS.md",
-        "$harness-bootstrap",
+        "$harness",
         "python scripts/check_docs_harness.py",
         "python scripts/harness/check_planning_graph.py",
         "python scripts/harness/check_harness_contract.py",
@@ -154,7 +156,8 @@ def check_agent_map(errors: list[str]) -> None:
     if line_count > 40:
         errors.append(f"AGENTS.md must stay short; current line count: {line_count}")
     for token in (
-        "$harness-bootstrap",
+        "$harness",
+        ".agents/skills/harness/SKILL.md",
         ".agents/skills/harness-bootstrap/SKILL.md",
         ".codex/agents/*.toml",
         ".agents/skills/",
@@ -166,19 +169,28 @@ def check_agent_map(errors: list[str]) -> None:
 
 
 def check_harness_entry_skill(errors: list[str]) -> None:
-    text = _read(".agents/skills/harness-bootstrap/SKILL.md")
+    entry_text = _read(".agents/skills/harness/SKILL.md")
     for token in (
+        "name: harness",
         "/harness <task>",
-        "$harness-bootstrap <task>",
+        "$harness <task>",
+        ".agents/skills/harness-bootstrap/SKILL.md",
+    ):
+        if token not in entry_text:
+            errors.append(f".agents/skills/harness/SKILL.md missing entry token: {token}")
+
+    bootstrap_text = _read(".agents/skills/harness-bootstrap/SKILL.md")
+    for token in (
+        "name: harness-bootstrap",
         ".harness/config.yaml",
         ".harness/bootstrap.md",
         ".harness/roles.yaml",
         ".codex/agents/*.toml",
         ".agents/skills/*/SKILL.md",
-        "Do not move this startup sequence back into `AGENTS.md`",
+        "Required Report Shape",
     ):
-        if token not in text:
-            errors.append(f".agents/skills/harness-bootstrap/SKILL.md missing entry token: {token}")
+        if token not in bootstrap_text:
+            errors.append(f".agents/skills/harness-bootstrap/SKILL.md missing procedure token: {token}")
 
 
 def check_harness_spine(errors: list[str]) -> None:

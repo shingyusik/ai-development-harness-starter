@@ -2,17 +2,16 @@
 
 이 저장소는 프로젝트에 복사해서 쓸 수 있는 **Codex-first repo AI 개발 하네스 스타터**다.
 
-핵심 시작점은 repo skill `.agents/skills/harness-bootstrap/SKILL.md`다. 루트 `AGENTS.md`는 이 skill을 가리키는 얇은 포인터만 유지한다. `.harness/bootstrap.md`는 skill이 읽는 runtime contract다. 우선 Codex CLI/App 기준으로 구성하고, Claude Code 호환은 이후 확장한다.
+핵심 시작점은 repo skill `.agents/skills/harness/SKILL.md`다. `/harness <task>`는 이 skill을 실행하는 사용자-facing 명령이다. 실제 하네스 행동 절차는 `.agents/skills/harness-bootstrap/SKILL.md`에 있고, `.harness/bootstrap.md`는 그 절차가 읽는 runtime contract다. 루트 `AGENTS.md`는 저장소 진입 지도 역할만 한다.
 
 ## 목적
 
-- 사용자가 `/harness <task>` 같은 slash command나 `$harness-bootstrap <task>` skill 호출로 하네스 모드에 들어가게 한다.
+- 사용자가 `/harness <task>` 또는 `$harness <task>`로 하네스 모드에 들어가게 한다.
 - Codex가 프로젝트 규칙을 매번 다시 추측하지 않게 한다.
 - 로드맵, 태스크, 정책, 리뷰 gate, 검증 명령을 저장소 안에 둔다.
 - Codex 공식 subagents/custom agents 구조인 `.codex/agents/*.toml`을 제공한다.
 - Codex 공식 skills 구조인 `.agents/skills/*/SKILL.md`를 제공한다.
 - 하네스 기준은 `.harness/`에 모은다.
-- 루트 `AGENTS.md`는 전체 운영 매뉴얼이 아니라 skill-first 진입점만 안내한다.
 
 ## 빠른 시작
 
@@ -20,7 +19,7 @@
 2. `.harness/config.yaml`의 required checks, source paths, Codex required files를 프로젝트에 맞게 바꾼다.
 3. `.codex/agents/*.toml`에서 필요한 Codex custom agent만 남기거나 프로젝트에 맞게 조정한다.
 4. `.agents/skills/*/SKILL.md`에서 프로젝트 반복 워크플로우에 맞는 repo skill을 조정한다.
-5. slash command가 가능하면 `/harness <task>`를 `.agents/skills/harness-bootstrap/SKILL.md`에 매핑한다. 없으면 `$harness-bootstrap <task>`를 직접 사용한다.
+5. 하네스 작업은 `/harness <task>` 또는 `$harness <task>`로 시작한다.
 6. `.harness/planning/*.yaml`에 실제 roadmap, milestone, task를 입력한다.
 7. `.harness/policies/`와 `.harness/gates/`에서 프로젝트에 맞지 않는 항목을 줄이거나 고친다.
 8. 아래 검증을 실행한다.
@@ -36,7 +35,8 @@ python scripts/check_docs_harness.py
 
 - `.codex/`: Codex project config와 custom subagent 정의.
 - `.agents/skills/`: Codex repo-scoped skills.
-- `.agents/skills/harness-bootstrap/SKILL.md`: 하네스 모드 진입 skill. slash command 또는 `$harness-bootstrap`의 target.
+- `.agents/skills/harness/SKILL.md`: `/harness` 명령의 entry skill.
+- `.agents/skills/harness-bootstrap/SKILL.md`: 하네스 행동 절차.
 - `.harness/`: 하네스 정책, gate, planning, role registry source of truth. 실행 가능한 agent 본문은 두지 않는다.
 - `.harness/roles.yaml`: 하네스 role을 `.codex/agents/*.toml`과 필요한 policy/gate/planning 파일에 연결하는 registry.
 - `.harness/policies/`: 지속적으로 지킬 정책.
@@ -49,11 +49,10 @@ python scripts/check_docs_harness.py
 ## 사용 원칙
 
 - Codex custom agent는 `.codex/agents/<agent>.toml`에 둔다. 각 파일은 `name`, `description`, `developer_instructions`를 가져야 한다.
-- `.harness/agents/`는 만들지 않는다. 하네스는 Codex agent를 감싸는 정책/registry 계층이고, role instruction 중복을 금지한다.
 - Codex skill은 `.agents/skills/<skill>/SKILL.md`에 둔다. 각 `SKILL.md`는 `name`, `description` frontmatter를 가져야 한다.
-- 하네스 시작 절차는 `AGENTS.md`가 아니라 `.agents/skills/harness-bootstrap/SKILL.md`에 둔다.
+- 하네스 시작 명령은 `.agents/skills/harness/SKILL.md`가 받는다.
+- 하네스 행동 절차는 `.agents/skills/harness-bootstrap/SKILL.md`에 둔다.
 - subagent fan-out은 명시적으로 요청할 때만 사용하고, 기본 depth는 1로 유지한다.
 - 프로젝트 고유 규칙이 생기면 `.harness/`에 기록하되, 실행 가능한 role 지시문은 `.codex/agents/*.toml`에만 둔다.
 - 사람이 반복해서 지적한 문제는 policy, gate, script, test 중 하나로 바꾼다.
 - 긴 설명보다 짧은 checklist와 실행 가능한 검증을 우선한다.
-- 최종 문서는 영어로 운용해도 된다. 지금 한국어 문서는 설계 피드백용 초안이다.
