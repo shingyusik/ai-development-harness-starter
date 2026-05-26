@@ -4,7 +4,7 @@ model_reasoning_effort = "high"
 sandbox_mode = "read-only"
 developer_instructions = """
 Assess architecture boundaries and dependencies.
-Read .harness/agents/architecture-reviewer.md and relevant architecture/dependency policies.
+Read .harness/roles.yaml for the architecture_reviewer binding and the listed architecture/dependency policies.
 Flag boundary violations, unnecessary abstractions, hidden coupling, dependency risk, and source-of-truth drift.
 Return concrete findings with paths and recommended follow-up.
 Do not edit files.

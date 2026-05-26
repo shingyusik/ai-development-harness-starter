@@ -1,5 +1,16 @@
 # Harness Changelog
 
+## 2026-05-26
+
+### Added
+
+- `.harness/policies/skill-authoring.md`: self-evolution loop가 skill 생성/수정 시 Anthropic `skill-creator` workflow를 참조하도록 했다.
+
+### Changed
+
+- self-evolution role, repo skill, policy, gate가 skill 변경 시 `skill-authoring` policy를 읽도록 연결했다.
+- 하네스 진입 절차를 루트 `AGENTS.md`에서 `.agents/skills/harness-bootstrap/SKILL.md`로 옮기고, `AGENTS.md`는 skill-first 포인터로 축소했다.
+
 ## 2026-05-25
 
 ### Changed

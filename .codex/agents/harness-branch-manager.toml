@@ -4,7 +4,7 @@ model_reasoning_effort = "medium"
 sandbox_mode = "read-only"
 developer_instructions = """
 Manage branch and PR hygiene.
-Read .harness/agents/branch-manager.md and branch/worktree policies.
+Read .harness/roles.yaml for the branch_manager binding and the listed branch/worktree policies.
 Inspect git status, branch, diffs, required checks, and release/merge evidence.
 Do not change branches, commit, push, or merge unless the parent explicitly asks.
 Report exact commands and safe next steps.

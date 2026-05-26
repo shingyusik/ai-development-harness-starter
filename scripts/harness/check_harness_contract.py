@@ -15,7 +15,8 @@ BOOTSTRAP_PATH = ".harness/bootstrap.md"
 
 ROOT_ROUTING_FILES = {"AGENTS.md"}
 FORBIDDEN_SOURCE_OF_TRUTH_FILES = {"AGENT.md", "CLAUDE.md"}
-FUTURE_HARNESS_DIRS = (".harness/agents", ".harness/policies", ".harness/gates")
+FUTURE_HARNESS_DIRS = (".harness/policies", ".harness/gates")
+FORBIDDEN_HARNESS_AGENT_PATH = ".harness/agents"
 
 
 def _repo_path(relative_path: str) -> Path:
@@ -180,6 +181,76 @@ def _check_codex_config(config: dict[str, Any], errors: list[str]) -> None:
             _check_existing_file(path, f"codex {key} file", errors)
 
 
+
+def _check_roles_registry(config: dict[str, Any], errors: list[str]) -> None:
+    roles_path = _repo_path(".harness/roles.yaml")
+    if not roles_path.is_file():
+        errors.append("missing roles registry: .harness/roles.yaml")
+        return
+    try:
+        roles_doc = yaml.safe_load(roles_path.read_text(encoding="utf-8"))
+    except yaml.YAMLError as exc:
+        errors.append(f"invalid YAML in .harness/roles.yaml: {exc}")
+        return
+    if not isinstance(roles_doc, dict):
+        errors.append("invalid YAML in .harness/roles.yaml: expected mapping at document root")
+        return
+    if roles_doc.get("runtime") != "codex":
+        errors.append(".harness/roles.yaml runtime must be codex")
+    roles = roles_doc.get("roles")
+    if not isinstance(roles, dict) or not roles:
+        errors.append(".harness/roles.yaml roles must be a non-empty mapping")
+        return
+
+    codex = config.get("codex") if isinstance(config.get("codex"), dict) else {}
+    required_agents = {
+        _normalize_path(item)
+        for item in codex.get("required_agents", [])
+        if _normalize_path(item) is not None
+    }
+    bound_agents: set[str] = set()
+    for role_name, role_config in roles.items():
+        if not isinstance(role_name, str) or not role_name.strip():
+            errors.append(f"invalid role name in .harness/roles.yaml: {role_name!r}")
+            continue
+        if not isinstance(role_config, dict):
+            errors.append(f"role {role_name} must be a mapping")
+            continue
+        codex_agent = _normalize_path(role_config.get("codex_agent"))
+        if codex_agent is None:
+            errors.append(f"role {role_name} missing codex_agent")
+        elif not codex_agent.startswith(".codex/agents/"):
+            errors.append(f"role {role_name} codex_agent must start with .codex/agents/: {codex_agent}")
+        else:
+            _check_existing_file(codex_agent, f"role {role_name} codex_agent", errors)
+            bound_agents.add(codex_agent)
+        reads = role_config.get("reads", [])
+        if reads is not None and not isinstance(reads, list):
+            errors.append(f"role {role_name} reads must be a list")
+            continue
+        for item in reads or []:
+            read_path = _normalize_path(item)
+            if read_path is None:
+                errors.append(f"role {role_name} invalid reads path: {item!r}")
+                continue
+            if not _is_within_harness(read_path):
+                errors.append(f"role {role_name} reads path outside .harness: {read_path}")
+                continue
+            _check_existing_file(read_path, f"role {role_name} reads file", errors)
+
+    missing_bindings = sorted(required_agents - bound_agents)
+    for path in missing_bindings:
+        errors.append(f"required Codex agent is not referenced by .harness/roles.yaml: {path}")
+
+
+def _check_no_duplicate_harness_agents(errors: list[str]) -> None:
+    if _repo_path(FORBIDDEN_HARNESS_AGENT_PATH).exists():
+        errors.append(
+            "duplicate harness agent directory is forbidden; "
+            "use .codex/agents/*.toml plus .harness/roles.yaml instead: "
+            f"{FORBIDDEN_HARNESS_AGENT_PATH}"
+        )
+
 def _check_bootstrap_contract(errors: list[str]) -> None:
     bootstrap_file = _repo_path(BOOTSTRAP_PATH)
     if not bootstrap_file.is_file():
@@ -237,8 +308,10 @@ def validate() -> tuple[list[str], list[str]]:
         _check_named_source_groups(config, errors)
         _check_check_paths(config, errors)
         _check_codex_config(config, errors)
+        _check_roles_registry(config, errors)
 
     _check_bootstrap_contract(errors)
+    _check_no_duplicate_harness_agents(errors)
     _check_warnings(warnings)
 
     return errors, warnings

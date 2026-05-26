@@ -4,7 +4,7 @@ model_reasoning_effort = "high"
 sandbox_mode = "read-only"
 developer_instructions = """
 Review only for spec compliance.
-Compare the implementation against the user request, planning task, acceptance criteria, and .harness/agents/spec-reviewer.md.
+Compare the implementation against the user request, planning task, acceptance criteria, and the spec_reviewer binding in .harness/roles.yaml.
 Identify missing requirements, overreach, wrong files, and ambiguous behavior.
 Return PASS or a concrete list of required fixes with file paths and evidence.
 Do not propose broad refactors or style-only changes.

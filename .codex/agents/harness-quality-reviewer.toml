@@ -4,7 +4,7 @@ model_reasoning_effort = "high"
 sandbox_mode = "read-only"
 developer_instructions = """
 Review code and documentation like an owner.
-Read .harness/agents/quality-reviewer.md and relevant .harness/gates/*.md.
+Read .harness/roles.yaml for the quality_reviewer binding and the listed .harness/gates/*.md files.
 Prioritize correctness, regressions, security, missing tests, evidence gaps, and merge blockers.
 Lead with concrete findings and reproduction or verification steps when possible.
 Do not edit files.

@@ -8,7 +8,9 @@
 - Codex subagent/custom agent 설정은 `.codex/config.toml`과 `.codex/agents/*.toml`이 담당한다.
 - Codex repo skill은 `.agents/skills/*/SKILL.md`가 담당한다.
 - 기계 판독 manifest와 required checks는 `.harness/config.yaml`이 담당한다.
+- role별 Codex agent binding과 추가 로딩 파일은 `.harness/roles.yaml`이 담당한다.
 - 이 파일 `.harness/bootstrap.md`는 role 선택, 필요한 하네스 문서 로딩, 편집 전 확인, 보고 형식만 정의한다.
+- `.harness/agents/`는 만들지 않는다. 역할 본문은 Codex가 직접 실행하는 `.codex/agents/*.toml` 하나만 source of truth로 둔다.
 
 ## 하네스 로딩 순서
 
@@ -16,7 +18,7 @@
 2. `.codex/agents/*.toml`에서 작업에 맞는 Codex custom agent 후보를 확인한다.
 3. `.agents/skills/*/SKILL.md`에서 작업에 맞는 Codex repo skill 후보를 확인한다.
 4. `.harness/config.yaml`에서 required files, checks, source-of-truth path를 확인한다.
-5. 요청에 맞는 가장 좁은 role을 고르고 `.harness/agents/<role>.md`를 읽는다.
+5. 요청에 맞는 가장 좁은 role을 고르고 `.harness/roles.yaml`에서 해당 `.codex/agents/*.toml` binding과 추가 로딩 파일을 확인한다.
 6. 작업에 필요한 `.harness/policies/*.md`만 읽는다.
 7. 검토나 merge 판단이 필요하면 관련 `.harness/gates/*.md`만 읽는다.
 8. planning 관련 작업이면 `.harness/planning/*.yaml`을 읽는다.
@@ -32,14 +34,18 @@
 
 ## 역할 선택
 
-- `pm`: roadmap, milestone, task, acceptance criteria.
-- `tech-lead`: 기술 접근, sequencing, decomposition, cross-area decision.
-- `implementer`: 승인된 범위의 코드/문서 변경.
-- `spec-reviewer`: 요구사항과 task 정의 검토.
-- `quality-reviewer`: 테스트, evidence, regression, acceptance coverage 확인.
-- `architecture-reviewer`: architecture boundary와 dependency 검토.
-- `branch-manager`: branch, worktree, PR hygiene.
-- `self-evolution`: 반복 실패를 하네스 개선으로 전환.
+역할의 실행 가능한 정의는 `.codex/agents/*.toml`이 단일 source of truth다. `.harness/roles.yaml`은 하네스 role 이름을 Codex custom agent와 필요한 policy/gate/planning 파일에 연결하는 registry다.
+
+하네스 계층은 agent instruction을 복제하지 않는다. 정책, gate, planning, registry만 유지한다.
+
+- `pm` → `.codex/agents/harness-pm.toml`
+- `tech_lead` → `.codex/agents/harness-tech-lead.toml`
+- `implementer` → `.codex/agents/harness-implementer.toml`
+- `spec_reviewer` → `.codex/agents/harness-spec-reviewer.toml`
+- `quality_reviewer` → `.codex/agents/harness-quality-reviewer.toml`
+- `architecture_reviewer` → `.codex/agents/harness-architecture-reviewer.toml`
+- `branch_manager` → `.codex/agents/harness-branch-manager.toml`
+- `self_evolution` → `.codex/agents/harness-self-evolution.toml`
 
 ## 편집 전 체크리스트
 
@@ -60,7 +66,7 @@
 
 계속 진행 가능하다.
 
-- optional role, policy, gate 파일이 현재 작업과 무관하게 없다.
+- optional policy, gate 파일이 현재 작업과 무관하게 없다.
 - legacy 문서가 남아 있지만 source-of-truth가 아니다.
 
 ## 보고 형식

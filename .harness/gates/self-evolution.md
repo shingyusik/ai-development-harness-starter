@@ -17,6 +17,7 @@
 - [ ] Acceptance criteria가 명확하고 충족됐다.
 - [ ] 변경 범위가 승인된 scope 안에 있다.
 - [ ] 관련 policy와 충돌하지 않는다.
+- [ ] skill 생성/수정이 포함되면 `.harness/policies/skill-authoring.md`를 적용했고 eval 또는 skip reason이 있다.
 - [ ] 필요한 자동화 check가 통과했다.
 - [ ] 생략한 check는 이유와 follow-up이 있다.
 - [ ] manual evidence가 필요한 경우 artifact가 있다.

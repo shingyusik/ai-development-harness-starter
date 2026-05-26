@@ -1,0 +1,50 @@
+version: 1
+runtime: codex
+roles:
+  pm:
+    codex_agent: .codex/agents/harness-pm.toml
+    reads:
+      - .harness/planning/roadmap.yaml
+      - .harness/planning/milestones.yaml
+      - .harness/planning/tasks.yaml
+      - .harness/gates/pm-planning.md
+  tech_lead:
+    codex_agent: .codex/agents/harness-tech-lead.toml
+    reads:
+      - .harness/bootstrap.md
+      - .harness/policies/architecture-governance.md
+      - .harness/policies/dependency-control.md
+      - .harness/gates/merge-readiness.md
+  implementer:
+    codex_agent: .codex/agents/harness-implementer.toml
+    reads:
+      - .harness/policies/tdd.md
+      - .harness/policies/clean-code.md
+      - .harness/gates/clean-code-review.md
+  spec_reviewer:
+    codex_agent: .codex/agents/harness-spec-reviewer.toml
+    reads:
+      - .harness/gates/pm-planning.md
+      - .harness/policies/roadmap-alignment.md
+  quality_reviewer:
+    codex_agent: .codex/agents/harness-quality-reviewer.toml
+    reads:
+      - .harness/gates/merge-readiness.md
+      - .harness/gates/ci-quality-review.md
+  architecture_reviewer:
+    codex_agent: .codex/agents/harness-architecture-reviewer.toml
+    reads:
+      - .harness/policies/architecture-governance.md
+      - .harness/gates/dependency-review.md
+  branch_manager:
+    codex_agent: .codex/agents/harness-branch-manager.toml
+    reads:
+      - .harness/policies/branch-ownership.md
+      - .harness/policies/worktree.md
+  self_evolution:
+    codex_agent: .codex/agents/harness-self-evolution.toml
+    reads:
+      - .harness/policies/self-evolution.md
+      - .harness/policies/skill-authoring.md
+      - .harness/gates/self-evolution.md
+      - .harness/templates/self-evolution-report.md

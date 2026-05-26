@@ -29,6 +29,7 @@ required_spine_files:
   - .harness/CHANGELOG.md
   - .harness/config.yaml
   - .harness/bootstrap.md
+  - .harness/roles.yaml
   - .harness/decisions/0001-harness-operating-model.md
   - .harness/decisions/0002-starter-adaptation-roadmap.md
   - .harness/planning/roadmap.yaml
