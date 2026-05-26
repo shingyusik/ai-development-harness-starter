@@ -45,5 +45,6 @@ roles:
     codex_agent: .codex/agents/harness-self-evolution.toml
     reads:
       - .harness/policies/self-evolution.md
+      - .harness/policies/skill-authoring.md
       - .harness/gates/self-evolution.md
       - .harness/templates/self-evolution-report.md

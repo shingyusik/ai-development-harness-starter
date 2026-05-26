@@ -8,6 +8,7 @@
 
 - 같은 지적이 반복되면 policy/gate/script/test/template 중 하나를 고친다.
 - 새 문서보다 기존 source-of-truth 개선을 우선한다.
+- `.agents/skills/*/SKILL.md`를 만들거나 수정할 때는 `.harness/policies/skill-authoring.md`를 읽고 Anthropic `skill-creator` workflow를 따른다.
 - 변경은 changelog에 남긴다.
 
 ## 리뷰 체크

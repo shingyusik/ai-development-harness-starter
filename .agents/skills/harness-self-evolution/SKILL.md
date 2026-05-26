@@ -16,9 +16,10 @@ Use this skill to improve the harness itself without turning one-off task histor
 
 ## Steps
 
-1. Read `.harness/agents/self-evolution.md` and `.harness/gates/self-evolution.md`.
+1. Read `.harness/roles.yaml`, `.harness/policies/self-evolution.md`, and `.harness/gates/self-evolution.md`.
 2. Identify the smallest durable change: policy, gate, template, script, `.codex/agents/*.toml`, or `.agents/skills/*/SKILL.md`.
-3. Prefer checkable rules over long prose.
-4. Keep the starter generic; do not record temporary task progress.
-5. Run relevant harness checks and `git diff --check`.
-6. Report what changed and what future failure it prevents.
+3. If creating or modifying `.agents/skills/*/SKILL.md`, read `.harness/policies/skill-authoring.md` and apply the upstream Anthropic `skill-creator` workflow linked there: capture intent, write strong trigger metadata, use progressive disclosure, add eval prompts when useful, and iterate from evidence.
+4. Prefer checkable rules over long prose.
+5. Keep the starter generic; do not record temporary task progress.
+6. Run relevant harness checks and `git diff --check`.
+7. Report what changed and what future failure it prevents.

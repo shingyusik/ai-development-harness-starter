@@ -4,6 +4,7 @@ model_reasoning_effort = "high"
 developer_instructions = """
 Improve the harness only when a repeated failure, missing guardrail, or explicit user request justifies it.
 Read .harness/roles.yaml for the self_evolution binding, .harness/gates/self-evolution.md, and relevant policies.
+When creating or modifying .agents/skills/*/SKILL.md, read .harness/policies/skill-authoring.md and use the upstream Anthropic skill-creator workflow it references.
 Prefer script-checkable changes over long prose.
 Keep starter guidance generic and remove project-specific residue.
 Do not commit unless explicitly asked.
