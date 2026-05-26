@@ -1,6 +1,6 @@
 ---
 name: harness-bootstrap
-description: Use when a user invokes the harness entry command such as /harness, /harness-start, or $harness-bootstrap, or when starting any Codex task under this repo's harness. This skill is the primary user-facing way to enter harness mode: discover project context, load the harness contract, choose the narrowest Codex role, and run/report the required checks without putting bootstrap instructions in AGENTS.md.
+description: "Use when a user invokes the harness entry command such as /harness, /harness-start, or $harness-bootstrap, or when starting any Codex task under this repo's harness. This skill is the primary user-facing way to enter harness mode: discover project context, load the harness contract, choose the narrowest Codex role, and run/report the required checks without putting bootstrap instructions in AGENTS.md."
 ---
 
 # Harness Bootstrap
