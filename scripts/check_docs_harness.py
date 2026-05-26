@@ -25,7 +25,6 @@ REQUIRED_FILES = (
     ".codex/agents/harness-branch-manager.toml",
     ".codex/agents/harness-self-evolution.toml",
     ".agents/skills/harness/SKILL.md",
-    ".agents/skills/harness-bootstrap/SKILL.md",
     ".agents/skills/harness-planning/SKILL.md",
     ".agents/skills/harness-review-gates/SKILL.md",
     ".agents/skills/harness-self-evolution/SKILL.md",
@@ -137,7 +136,6 @@ def check_root_readme(errors: list[str]) -> None:
         ".codex/agents/*.toml",
         ".agents/skills/*/SKILL.md",
         ".agents/skills/harness/SKILL.md",
-        ".agents/skills/harness-bootstrap/SKILL.md",
         ".harness/bootstrap.md",
         "AGENTS.md",
         "$harness",
@@ -158,7 +156,6 @@ def check_agent_map(errors: list[str]) -> None:
     for token in (
         "$harness",
         ".agents/skills/harness/SKILL.md",
-        ".agents/skills/harness-bootstrap/SKILL.md",
         ".codex/agents/*.toml",
         ".agents/skills/",
         ".harness/roles.yaml",
@@ -169,19 +166,11 @@ def check_agent_map(errors: list[str]) -> None:
 
 
 def check_harness_entry_skill(errors: list[str]) -> None:
-    entry_text = _read(".agents/skills/harness/SKILL.md")
+    text = _read(".agents/skills/harness/SKILL.md")
     for token in (
         "name: harness",
         "/harness <task>",
         "$harness <task>",
-        ".agents/skills/harness-bootstrap/SKILL.md",
-    ):
-        if token not in entry_text:
-            errors.append(f".agents/skills/harness/SKILL.md missing entry token: {token}")
-
-    bootstrap_text = _read(".agents/skills/harness-bootstrap/SKILL.md")
-    for token in (
-        "name: harness-bootstrap",
         ".harness/config.yaml",
         ".harness/bootstrap.md",
         ".harness/roles.yaml",
@@ -189,9 +178,8 @@ def check_harness_entry_skill(errors: list[str]) -> None:
         ".agents/skills/*/SKILL.md",
         "Required Report Shape",
     ):
-        if token not in bootstrap_text:
-            errors.append(f".agents/skills/harness-bootstrap/SKILL.md missing procedure token: {token}")
-
+        if token not in text:
+            errors.append(f".agents/skills/harness/SKILL.md missing entry/procedure token: {token}")
 
 def check_harness_spine(errors: list[str]) -> None:
     bootstrap = _read(".harness/bootstrap.md")

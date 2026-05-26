@@ -9,8 +9,8 @@ Start harness-scoped work through:
 
 Source-of-truth locations:
 
-- Command entry skill: `.agents/skills/harness/SKILL.md`
-- Bootstrap procedure: `.agents/skills/harness-bootstrap/SKILL.md`
+- Harness entry and procedure skill: `.agents/skills/harness/SKILL.md`
+- Runtime contract: `.harness/bootstrap.md`
 - Codex roles/subagents: `.codex/agents/*.toml`
 - Role registry: `.harness/roles.yaml`
 - Harness policy/gates/planning: `.harness/`
